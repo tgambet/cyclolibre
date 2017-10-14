@@ -29,6 +29,7 @@ export class AppComponent implements OnInit {
       // var bikeLayer = new google.maps.BicyclingLayer();
       // console.log(bikeLayer);
       //this.wrapper.getNativeMap().then((map) => console.log(map))
+      console.log("loaded");
     });
   }
 
@@ -56,10 +57,10 @@ export class AppComponent implements OnInit {
   }
 
   icon(s: station) {
-    if (s.status == "CLOSED") {
+    if (s.status == "CLOSED")
       return 'assets/icon.svg';
-    }
-    let percentage = this.typeLooked == "bike" ? s.available_bikes / s.bike_stands : s.available_bike_stands / s.bike_stands;
+    let percentage =
+      this.typeLooked == "bike" ? s.available_bikes / s.bike_stands : s.available_bike_stands / s.bike_stands;
     if (percentage > 0.75)
       return 'assets/icon-4.svg';
     if (percentage > 0.50)

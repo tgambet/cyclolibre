@@ -5,8 +5,10 @@
   </h1>
   <p>
     Je cherche:
-    <label for="bike">un vélo</label><input id="bike" value="bike" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
-    <label for="stand">un emplacement</label><input id="stand" value="stand" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
+    <input id="bike" value="bike" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
+    <label for="bike">un vélo</label>
+    <input id="stand" value="stand" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
+    <label for="stand">un emplacement</label>
   </p>
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
     <!--<agm-marker-cluster [imagePath]=imagePath [minimumClusterSize]=15-->
