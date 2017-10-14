@@ -1,20 +1,38 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
+<div>
   <h1>
-    Welcome to {{title}}!
+    {{title}}
   </h1>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
+  <p>
+    Je cherche:
+    <label for="bike">un vélo</label><input id="bike" value="bike" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
+    <label for="stand">un emplacement</label><input id="stand" value="stand" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
+  </p>
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
+    <!--<agm-marker-cluster [imagePath]=imagePath [minimumClusterSize]=15-->
+      <agm-marker
+          *ngFor="let s of stations; let i = index"
+          (markerClick)="clickedStation(s.number, i)"
+          [latitude]="s.position.lat"
+          [longitude]="s.position.lng"
+          [iconUrl]="icon(s)">
+        <agm-info-window>
+          <div style="text-align: left">
+            <strong>Station n°{{s.number}}</strong><br>
+            {{s.address}}<br>
+            <span *ngIf='s.status == "OPEN"'>
+              Vélos disponibles: <strong>{{s.available_bikes}}</strong><br>
+              Emplacements disponibles: <strong>{{s.available_bike_stands}}</strong><br>
+            </span>
+            <span *ngIf='s.status == "CLOSED"' style="color: red;">
+              <strong>FERMÉE</strong>
+            </span>
+          </div>
+        </agm-info-window>
+      </agm-marker>
+    <!--/agm-marker-cluster-->
+  </agm-map>
+  <p>Vélos disponibles: {{getAvailableBikes()}}</p>
+  <p>Emplacements disponibles: {{getAvailableBikeStands()}}</p>
+  {{typeLooked}}
 </div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
-
