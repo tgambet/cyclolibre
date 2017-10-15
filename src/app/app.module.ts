@@ -11,7 +11,8 @@ import { MapExtensionDirective } from './map-extension.directive';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
-import { NavComponent } from './nav/nav.component'
+import { NavComponent } from './nav/nav.component';
+import { MapComponent } from './map/map.component'
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
     AboutComponent,
     HomeComponent,
     NavComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,

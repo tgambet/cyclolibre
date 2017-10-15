@@ -1,0 +1,34 @@
+<div>
+  <p>
+    Je cherche:
+    <input id="bike" value="bike" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
+    <label for="bike">un vélo</label>
+    <input id="stand" value="stand" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
+    <label for="stand">un emplacement</label>
+  </p>
+  <agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
+      <agm-marker
+          *ngFor="let s of stations; let i = index"
+          (markerClick)="clickedStation(s.number, i)"
+          [latitude]="s.position.lat"
+          [longitude]="s.position.lng"
+          [iconUrl]="icon(s)">
+        <agm-info-window>
+          <div style="text-align: left">
+            <strong>Station n°{{s.number}}</strong><br>
+            {{s.address}}<br>
+            <span *ngIf='s.status == "OPEN"'>
+              Vélos disponibles: <strong>{{s.available_bikes}}</strong><br>
+              Emplacements disponibles: <strong>{{s.available_bike_stands}}</strong><br>
+            </span>
+            <span *ngIf='s.status == "CLOSED"' style="color: red;">
+              <strong>FERMÉE</strong>
+            </span>
+          </div>
+        </agm-info-window>
+      </agm-marker>
+  </agm-map>
+  <p>Vélos disponibles: {{getAvailableBikes()}}</p>
+  <p>Emplacements disponibles: {{getAvailableBikeStands()}}</p>
+  {{typeLooked}}
+</div>

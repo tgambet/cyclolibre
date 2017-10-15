@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavComponent implements OnInit {
 
-  constructor() { }
+  isOpen: boolean = false;
+
+  constructor(elementRef: ElementRef, renderer: Renderer) {
+
+  }
 
   ngOnInit() {
+
   }
 
 }
