@@ -20,9 +20,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.http.get('https://api.jcdecaux.com/vls/v1/stations?contract=Paris&apiKey=8d872049485a3cd80d956d3f53aaeda5427d47e4').subscribe(data => {
+      let stats = []
       for (let i in data) {
-        this.stations.push(data[i]);
+        stats.push(data[i]);
       }
+      this.stations = stats;
     });
     this.mapsAPILoader.load().then(() => {
       //console.log( google)
@@ -33,7 +35,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  title = 'Vélo Libre';
+  title = 'VéloLibre';
   lat: number = 48.8566458;
   lng: number = 2.3479486;
   zoom: number = 12;

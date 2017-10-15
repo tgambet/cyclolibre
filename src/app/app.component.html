@@ -1,8 +1,9 @@
+
+
+
+<router-outlet></router-outlet>
 <!--The content below is only a placeholder and can be replaced.-->
 <div>
-  <h1>
-    {{title}}
-  </h1>
   <p>
     Je cherche:
     <input id="bike" value="bike" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
@@ -11,7 +12,6 @@
     <label for="stand">un emplacement</label>
   </p>
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
-    <!--<agm-marker-cluster [imagePath]=imagePath [minimumClusterSize]=15-->
       <agm-marker
           *ngFor="let s of stations; let i = index"
           (markerClick)="clickedStation(s.number, i)"
@@ -32,7 +32,6 @@
           </div>
         </agm-info-window>
       </agm-marker>
-    <!--/agm-marker-cluster-->
   </agm-map>
   <p>Vélos disponibles: {{getAvailableBikes()}}</p>
   <p>Emplacements disponibles: {{getAvailableBikeStands()}}</p>
