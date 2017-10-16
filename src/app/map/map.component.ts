@@ -12,9 +12,9 @@ import * as _ from 'lodash';
 })
 export class MapComponent implements OnInit {
 
-  lat: number = 48.8566458;
-  lng: number = 2.3479486;
-  zoom: number = 12;
+  lat: number = 46.7131494;
+  lng: number = 1.6273467;
+  zoom: number = 6;
 
   typeLooked: string = "bike";
 
@@ -36,16 +36,26 @@ export class MapComponent implements OnInit {
           let id = params['id']
           this.jcDecauxService
               .getStations(id)
-              .then(stations => this.stations = stations)
+              .then(stations => {
+                this.centerMap(stations);
+                this.stations = stations
+              })
               .catch(error => this.error = error.statusText);
           this.jcDecauxService
               .getContract(id)
               .then(contract => this.contract = contract)
-              .catch(error => {
-                console.log(error)
-                this.error = error.statusText
-              });
+              .catch(error => this.error = error.statusText);
         });
+  }
+
+  centerMap(stations: Station[]) {
+      let lats = _.map(stations, (station: Station) => station.position.lat)
+      let lngs = _.map(stations, (station: Station) => station.position.lng)
+      let lat = _.reduce(lats, (acc, lat) => acc + lat) / lats.length;
+      let lng = _.reduce(lngs, (acc, lng) => acc + lng) / lngs.length;
+      this.lat = lat;
+      this.lng = lng;
+      this.zoom = 12;
   }
 
   // getAvailableBikes() {
