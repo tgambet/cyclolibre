@@ -9,16 +9,27 @@ export class JcDecauxService {
     private http: HttpClient
   ) { }
 
-  contracts: Contract[] = [];
+  contracts: Contract[];
 
   apiKey = '8d872049485a3cd80d956d3f53aaeda5427d47e4';
 
   serviceUrl = 'https://api.jcdecaux.com/vls/v1/';
 
-  getContracts(): Promise<Contract[]> {
+  getContract(contractName: string): Promise<Contract> {
+    if (this.contracts) {
+      return Promise.resolve(_.find(this.contracts, (contract) => contract.name.toLowerCase() == contractName.toLowerCase()))
+    } else {
+      return this.getContracts().then(contracts => {
+        return _.find(contracts, (contract) => contract.name.toLowerCase() == contractName.toLowerCase())
+      })
+    }
+  }
 
+  getContracts(): Promise<Contract[]> {
     return new Promise((resolve, reject) => {
-      if (this.contracts.length == 0) {
+      if (this.contracts) {
+        resolve(this.contracts);
+      } else {
         this.http.get(this.serviceUrl + 'contracts?apiKey=' + this.apiKey).subscribe(
           data => {
             let results = [];
@@ -28,16 +39,10 @@ export class JcDecauxService {
             this.contracts = _.sortBy(_.filter(results, {country_code: "FR"}), ["name"]);
             resolve(this.contracts);
           },
-          err => {
-            //console.log(err)
-            reject(err);
-          }
+          err => reject(err)
         );
-      } else {
-        resolve(this.contracts);
       }
     });
-
   }
 
   getStations(contractName: string): Promise<Station[]> {

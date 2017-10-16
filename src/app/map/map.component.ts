@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { JcDecauxService, Station } from '../services/jc-decaux.service';
+import { JcDecauxService, Station, Contract } from '../services/jc-decaux.service';
 
 import * as _ from 'lodash';
 
@@ -20,6 +20,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   stations: Station[] = [];
 
+  contract: Contract;
+
   error: string;
 
   constructor(
@@ -36,6 +38,13 @@ export class MapComponent implements OnInit, OnDestroy {
               .getStations(id)
               .then(stations => this.stations = stations)
               .catch(error => this.error = error.statusText);
+          this.jcDecauxService
+              .getContract(id)
+              .then(contract => this.contract = contract)
+              .catch(error => {
+                console.log(error)
+                this.error = error.statusText
+              });
         });
   }
 

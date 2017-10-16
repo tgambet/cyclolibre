@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
+import { Component, OnInit, ElementRef, Renderer, Input } from '@angular/core';
 
 @Component({
   selector: 'app-nav',
@@ -8,6 +8,12 @@ import { Component, OnInit, ElementRef, Renderer } from '@angular/core';
 export class NavComponent implements OnInit {
 
   isOpen: boolean = false;
+
+  @Input()
+  contractName: string
+
+  @Input()
+  contractCity: string
 
   constructor(elementRef: ElementRef, renderer: Renderer) {
 

@@ -14,9 +14,9 @@
 
     <div class="navbar-menu" [class.is-active]="isOpen">
       <div class="navbar-start">
-        <!-- <a class="navbar-item is-active">
-          Paris (VéLib')
-        </a> -->
+        <a class="navbar-item is-active" *ngIf="contractCity && contractName">
+          {{contractCity}} ({{contractName}})
+        </a>
       </div>
 
       <div class="navbar-end">
