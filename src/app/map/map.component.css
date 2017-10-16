@@ -1,4 +1,4 @@
-agm-map {
+agm-map, .mapLoader {
   height: 100%;
   width: 100%;
   position: absolute;
@@ -7,4 +7,12 @@ agm-map {
 }
 .hero-body {
   position: relative;
+}
+.mapLoader {
+  color: white;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

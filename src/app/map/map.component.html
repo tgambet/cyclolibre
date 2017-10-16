@@ -3,7 +3,7 @@
     <app-nav *ngIf="contract" [contractName]="contract.commercial_name" [contractCity]="contract.name"></app-nav>
     <app-nav *ngIf="!contract"></app-nav>
   </div>
-  <div class="hero-body">
+  <div class="hero-body has-text-centered">
 
   <!-- <p>
     Je cherche:
@@ -12,6 +12,12 @@
     <input id="stand" value="stand" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
     <label for="stand">un emplacement</label>
   </p> -->
+  <div class="mapLoader" *ngIf="stations.length == 0">
+    <span class="icon">
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+    </span>
+    &nbsp;Chargement...
+  </div>
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
       <agm-marker
           *ngFor="let s of stations; let i = index"
