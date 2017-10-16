@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 
+import { JcDecauxService, contract } from '../services/jc-decaux.service'
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -13,31 +15,17 @@ export class HomeComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-  ) { }
+    private jcDecauxService: JcDecauxService
+  ) {}
 
   contracts: contract[] = [];
 
   ngOnInit() {
-    if (this.contracts.length == 0) {
-      this.http.get('https://api.jcdecaux.com/vls/v1/contracts?apiKey=8d872049485a3cd80d956d3f53aaeda5427d47e4').subscribe(data => {
-        let results = []
-        for (let i in data) {
-          results.push(data[i]);
-        }
-        this.contracts = _.sortBy(_.filter(results, {country_code: "FR"}), ["name"]);
-      });
-    }
+    this.jcDecauxService.getContracts().then(contracts => this.contracts = contracts)
   }
 
   onChange(name: string) {
     this.router.navigate(['/' + name.toLowerCase()]);
   }
 
-}
-
-interface contract {
-  name: string,
-  cities : string[],
-  commercial_name: string,
-  country_code: string
 }

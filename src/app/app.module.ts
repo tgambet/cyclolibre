@@ -12,11 +12,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
-import { MapComponent } from './map/map.component'
+import { MapComponent } from './map/map.component';
+
+import { JcDecauxService } from './services/jc-decaux.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: ':id', component: MapComponent },
   //{ path: 'map', component: HeroListComponent },
   //{ path: 'table', component: HeroListComponent },
   //{ path: '',   redirectTo: '/heroes', pathMatch: 'full' },
@@ -47,7 +50,8 @@ const appRoutes: Routes = [
     )
   ],
   providers: [
-    GoogleMapsAPIWrapper
+    GoogleMapsAPIWrapper,
+    JcDecauxService
   ],
   bootstrap: [AppComponent]
 })
