@@ -1,11 +1,16 @@
-<div>
-  <p>
+<section class="hero is-fullheight is-dark">
+  <div class="hero-head">
+    <app-nav></app-nav>
+  </div>
+  <div class="hero-body">
+
+  <!-- <p>
     Je cherche:
     <input id="bike" value="bike" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
     <label for="bike">un vélo</label>
     <input id="stand" value="stand" type="radio" name="typeLooked" [(ngModel)]="typeLooked">
     <label for="stand">un emplacement</label>
-  </p>
+  </p> -->
   <agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
       <agm-marker
           *ngFor="let s of stations; let i = index"
@@ -28,7 +33,20 @@
         </agm-info-window>
       </agm-marker>
   </agm-map>
-  <p>Vélos disponibles: {{getAvailableBikes()}}</p>
+  <!-- <p>Vélos disponibles: {{getAvailableBikes()}}</p>
   <p>Emplacements disponibles: {{getAvailableBikeStands()}}</p>
-  {{typeLooked}}
-</div>
+  {{typeLooked}} -->
+
+  </div>
+  <div class="hero-foot">
+    <nav class="tabs is-boxed">
+      <div class="container">
+        <ul>
+          <li class="is-active"><a>Carte</a></li>
+          <li><a>Tableau</a></li>
+        </ul>
+      </div>
+    </nav>
+  </div>
+
+</section>

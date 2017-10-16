@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { JcDecauxService, Station } from '../services/jc-decaux.service';
@@ -10,7 +10,7 @@ import * as _ from 'lodash';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
 
   lat: number = 48.8566458;
   lng: number = 2.3479486;
@@ -37,6 +37,11 @@ export class MapComponent implements OnInit {
               .then(stations => this.stations = stations)
               .catch(error => this.error = error.statusText);
         });
+  }
+
+  ngOnDestroy() {
+    this.stations = [];
+    console.log("destroy")
   }
 
   getAvailableBikes() {
