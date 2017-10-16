@@ -13,9 +13,9 @@
         Les vélos en libre service
       </h2>
       <div class="select is-dark" *ngIf="contracts.length > 0">
-        <select>
+        <select (change)="onChange($event.target.value)">
           <option disabled>Choisissez une ville</option>
-          <option *ngFor="let c of contracts; let i = index">
+          <option *ngFor="let c of contracts; let i = index" [value]="c.name">
             {{c.name}} ({{c.commercial_name}})
           </option>
         </select>
