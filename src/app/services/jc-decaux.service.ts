@@ -9,13 +9,13 @@ export class JcDecauxService {
     private http: HttpClient
   ) { }
 
-  contracts: contract[] = [];
+  contracts: Contract[] = [];
 
   apiKey = '8d872049485a3cd80d956d3f53aaeda5427d47e4';
 
   serviceUrl = 'https://api.jcdecaux.com/vls/v1/';
 
-  getContracts(): Promise<contract[]> {
+  getContracts(): Promise<Contract[]> {
 
     return new Promise((resolve, reject) => {
       if (this.contracts.length == 0) {
@@ -40,7 +40,7 @@ export class JcDecauxService {
 
   }
 
-  getStations(contractName: string): Promise<station[]> {
+  getStations(contractName: string): Promise<Station[]> {
     return new Promise((resolve, reject) => {
       this.http.get(this.serviceUrl + 'stations?apiKey=' + this.apiKey + '&contract=' + contractName).subscribe(
         data => {
@@ -57,14 +57,14 @@ export class JcDecauxService {
 
 }
 
-export interface contract {
+export interface Contract {
   name: string,
   cities : string[],
   commercial_name: string,
   country_code: string
 }
 
-export interface station {
+export interface Station {
   number: number,
   contract_name: string,
   name: string,

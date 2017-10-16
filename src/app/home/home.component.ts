@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 
-import { JcDecauxService, contract } from '../services/jc-decaux.service'
+import { JcDecauxService, Contract } from '../services/jc-decaux.service'
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     private jcDecauxService: JcDecauxService
   ) {}
 
-  contracts: contract[] = [];
+  contracts: Contract[] = [];
 
   error: string
 

@@ -1,10 +1,10 @@
 <nav class="navbar">
   <div class="container">
     <div class="navbar-brand">
-      <div class="navbar-item">
+      <a class="navbar-item" routerLink="/">
           <img src="assets/biker.svg" width="28" style="margin-right: 0.5rem"/>
           <span>VéloLibre</span>
-      </div>
+      </a>
       <div class="navbar-burger burger" [class.is-active]="isOpen" (click)="isOpen = !isOpen">
         <span></span>
         <span></span>
@@ -14,10 +14,9 @@
 
     <div class="navbar-menu" [class.is-active]="isOpen">
       <div class="navbar-start">
-        <a class="navbar-item is-active">
+        <!-- <a class="navbar-item is-active">
           Paris (VéLib')
-        </a>
-
+        </a> -->
       </div>
 
       <div class="navbar-end">
