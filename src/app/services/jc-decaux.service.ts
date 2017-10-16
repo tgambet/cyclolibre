@@ -19,14 +19,20 @@ export class JcDecauxService {
 
     return new Promise((resolve, reject) => {
       if (this.contracts.length == 0) {
-        this.http.get(this.serviceUrl + 'contracts?apiKey=' + this.apiKey).subscribe(data => {
-          let results = [];
-          for (let i in data) {
-            results.push(data[i]);
+        this.http.get(this.serviceUrl + 'contracts?apiKey=' + this.apiKey).subscribe(
+          data => {
+            let results = [];
+            for (let i in data) {
+              results.push(data[i]);
+            }
+            this.contracts = _.sortBy(_.filter(results, {country_code: "FR"}), ["name"]);
+            resolve(this.contracts);
+          },
+          err => {
+            //console.log(err)
+            reject(err);
           }
-          this.contracts = _.sortBy(_.filter(results, {country_code: "FR"}), ["name"]);
-          resolve(this.contracts);
-        });
+        );
       } else {
         resolve(this.contracts);
       }
@@ -36,13 +42,16 @@ export class JcDecauxService {
 
   getStations(contractName: string): Promise<station[]> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.serviceUrl + 'stations?apiKey=' + this.apiKey + '&contract=' + contractName).subscribe(data => {
-        let results = [];
-        for (let i in data) {
-          results.push(data[i]);
-        }
-        resolve(results);
-      });
+      this.http.get(this.serviceUrl + 'stations?apiKey=' + this.apiKey + '&contract=' + contractName).subscribe(
+        data => {
+          let results = [];
+          for (let i in data) {
+            results.push(data[i]);
+          }
+          resolve(results);
+        },
+        err => reject(err)
+      );
     });
   }
 

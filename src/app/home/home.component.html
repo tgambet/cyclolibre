@@ -20,11 +20,15 @@
           </option>
         </select>
       </div>
-      <div *ngIf="contracts.length == 0">
+      <div *ngIf="contracts.length == 0 && !error">
         <span class="icon">
           <i class="fa fa-circle-o-notch fa-spin"></i>
         </span>
         Chargement...
+      </div>
+      <div *ngIf="error" class="error">
+        Une erreur est survenue ({{error}})<br>
+        Réessayez plus tard
       </div>
     </div>
   </div>

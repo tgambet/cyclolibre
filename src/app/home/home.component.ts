@@ -20,8 +20,13 @@ export class HomeComponent implements OnInit {
 
   contracts: contract[] = [];
 
+  error: string
+
   ngOnInit() {
-    this.jcDecauxService.getContracts().then(contracts => this.contracts = contracts)
+    this.jcDecauxService.getContracts().then(
+      contracts => this.contracts = contracts,
+      error => this.error = error.statusText
+    )
   }
 
   onChange(name: string) {
