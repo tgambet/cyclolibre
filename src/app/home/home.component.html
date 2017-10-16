@@ -12,12 +12,19 @@
       <h2 class="subtitle">
         Les vélos en libre service
       </h2>
-      <div class="select is-dark">
+      <div class="select is-dark" *ngIf="contracts.length > 0">
         <select>
-          <option>Choisissez une ville</option>
-          <option>Paris</option>
-          <option>Amiens</option>
+          <option disabled>Choisissez une ville</option>
+          <option *ngFor="let c of contracts; let i = index">
+            {{c.name}} ({{c.commercial_name}})
+          </option>
         </select>
+      </div>
+      <div *ngIf="contracts.length == 0">
+        <span class="icon">
+          <i class="fa fa-circle-o-notch fa-spin"></i>
+        </span>
+        Chargement des contrats...
       </div>
     </div>
   </div>
