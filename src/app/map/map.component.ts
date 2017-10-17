@@ -45,10 +45,8 @@ export class MapComponent implements OnInit {
   centerMap(stations: Station[]) {
       let lats = _.map(stations, (station: Station) => station.position.lat);
       let lngs = _.map(stations, (station: Station) => station.position.lng);
-      let lat = _.reduce(lats, (acc, lat) => acc + lat) / lats.length;
-      let lng = _.reduce(lngs, (acc, lng) => acc + lng) / lngs.length;
-      this.lat = lat;
-      this.lng = lng;
+      this.lat = _.max(lats) - (_.max(lats) - _.min(lats)) / 2;
+      this.lng = _.max(lngs) - (_.max(lngs) - _.min(lngs)) / 2;
       this.zoom = 13;
   }
 

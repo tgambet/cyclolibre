@@ -5,6 +5,9 @@
           <img src="assets/biker.svg" width="28" style="margin-right: 0.5rem"/>
           <span>VéloLibre</span>
       </a>
+      <a class="navbar-item is-active" *ngIf="contractCity && contractName">
+        {{contractCity}} ({{contractName}})
+      </a>
       <div class="navbar-burger burger" [class.is-active]="isOpen" (click)="isOpen = !isOpen">
         <span></span>
         <span></span>
@@ -13,12 +16,9 @@
     </div>
 
     <div class="navbar-menu" [class.is-active]="isOpen">
-      <div class="navbar-start">
-        <a class="navbar-item is-active" *ngIf="contractCity && contractName">
-          {{contractCity}} ({{contractName}})
-        </a>
-      </div>
+      <!-- <div class="navbar-start">
 
+      </div> -->
       <div class="navbar-end">
         <a class="navbar-item" routerLink="/" routerLinkActive="is-active" [routerLinkActiveOptions]="{exact:true}">
           Accueil

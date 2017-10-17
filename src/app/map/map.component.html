@@ -21,7 +21,7 @@
   </p>
 </div>
 
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]=true appMapExtension>
   <agm-marker
       *ngFor="let s of stations; let i = index"
       (markerClick)="clickedStation(s.number, i)"
