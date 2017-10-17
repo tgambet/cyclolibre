@@ -22,6 +22,8 @@ table {
 }
 .number {
   width: 2.5rem;
+  padding: 0 0.2rem 0 0 !important;
+  vertical-align: middle;
 }
 .is-closed {
   text-decoration: line-through;
@@ -33,4 +35,7 @@ table {
 td.address {
   font-size: 80%;
   vertical-align: middle;
+}
+tr:hover {
+  background: #292929;
 }

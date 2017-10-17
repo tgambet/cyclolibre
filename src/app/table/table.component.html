@@ -27,7 +27,7 @@
   <table class="table is-narrow is-fullwidth" >
     <thead>
       <tr>
-        <th class="number">
+        <th class="number"  title="Numéro de la station">
           <a (click)="sortBy('number')">
             n°
             <span class="icon is-small">
@@ -39,7 +39,7 @@
             </span>
           </a>
         </th>
-        <th class="address">
+        <th class="address" title="Adresse de la station">
           <a (click)="sortBy('address')">
             Adresse
             <span class="icon is-small">
@@ -51,7 +51,7 @@
             </span>
           </a>
         </th>
-        <th class="available_bikes">
+        <th class="available_bikes" title="Nombre de vélos disponibles">
           <a (click)="sortBy('available_bikes')">
             Vélos
             <span class="icon is-small">
@@ -63,7 +63,7 @@
             </span>
           </a>
         </th>
-        <th class="available_bike_stands">
+        <th class="available_bike_stands" title="Nombre d'emplacements' disponibles">
           <a (click)="sortBy('available_bike_stands')">
             Empl.
             <span class="icon is-small">
@@ -93,8 +93,8 @@
       <tr *ngFor="let station of displayedStations[currentPage - 1]" [class.is-closed]="station.status == 'CLOSED'">
         <td class="number">{{station.number}}</td>
         <td class="address" title="{{station.name}}">{{station.address}}</td>
-        <td class="available_bikes">{{station.available_bikes}}</td>
-        <td class="available_bike_stands">{{station.available_bike_stands}}</td>
+        <td class="available_bikes" title="{{station.available_bikes}} vélo(s) disponible(s)">{{station.available_bikes}}</td>
+        <td class="available_bike_stands" title="{{station.available_bike_stands}} emplacement(s) disponible(s)">{{station.available_bike_stands}}</td>
         <!-- <td class="bike_stands">{{station.bike_stands}}</td> -->
       </tr>
     </tbody>
@@ -104,7 +104,7 @@
 
 <nav class="level" *ngIf="displayedStations">
   <div class="level-left">
-    <span>{{currentPage}}/{{displayedStations.length}}</span>
+    <span>Page {{currentPage}}/{{displayedStations.length}}</span>
   </div>
   <div class="level-right">
     <a class="pagination-previous" (click)="previousPage()" [class.is-disabled]="isFirstPage()"><</a>
