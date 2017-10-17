@@ -1,0 +1,111 @@
+agm-map, .mapLoader {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.mapLoader {
+  color: white;
+  z-index: 10;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mapButtons {
+  position: absolute;
+  z-index: 5;
+  top: 0.5rem;
+  left: 0.5rem;
+}
+.mapLegend {
+  position: absolute;
+  z-index: 5;
+  bottom: 1.7rem;
+  left: 0.5rem;
+  background: rgba(54,54,54,0.9);
+  text-align: left;
+  font-size: 70%;
+  padding: 0.25rem;
+  border-radius: 2px;
+}
+hr {
+  margin: 0.3rem 0;
+}
+.l {
+  border: 1px solid;
+  display: inline-block;
+  width: 12px;
+  line-height: 0rem;
+}
+.l.l1 {
+  border-color: rgb(13,86,13);
+}
+.l.l2 {
+  border-color: rgb(22,146,22);
+}
+.l.l3 {
+  border-color: rgb(22,146,22);
+  border-style: dashed;
+}
+
+
+.delete {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  background-color: rgba(0,0,0, 0.2);
+  border: none;
+  border-radius: 290486px;
+  cursor: pointer;
+  display: inline-block;
+  flex-grow: 0;
+  flex-shrink: 0;
+  //font-size: $size-normal;
+  height: 20px;
+  max-height: 20px;
+  max-width: 20px;
+  min-height: 20px;
+  min-width: 20px;
+  outline: none;
+  position: relative;
+  vertical-align: top;
+  width: 20px;
+}
+.delete:before,
+.delete:after {
+    background-color: #fff;
+    content: "";
+    display: block;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    transform-origin: center center;
+}
+.delete:before {
+    height: 2px;
+    width: 50%;
+}
+.delete:after {
+    height: 50%;
+    width: 2px;
+}
+.delete:hover,
+.delete:focus {
+    background-color: rgba(0,0,0, 0.3);
+}
+.delete:active {
+    background-color: rgba(0,0,0, 0.4);
+}
+
+.delete {
+  position: absolute;
+  right: 0.2rem;
+  top: 0.2rem;
+}

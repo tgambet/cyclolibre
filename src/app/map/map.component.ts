@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
-  styleUrls: ['./map.component.css']
+  styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
 
@@ -17,6 +17,8 @@ export class MapComponent implements OnInit {
   zoom: number = 6;
 
   typeLooked: string = "bike"; // or "stand"
+
+  displayLegend: boolean = true;
 
   stations: Station[];
 

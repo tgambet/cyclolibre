@@ -8,7 +8,7 @@
   {{error}}
 </div>
 
-<div class="field has-addons mapButtons">
+<div class="field has-addons mapButtons" *ngIf="stations">
   <p class="control">
     <a class="button" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'">
       <span>Vélos</span>
@@ -43,3 +43,16 @@
     </agm-info-window>
   </agm-marker>
 </agm-map>
+
+<div class="mapLegend" *ngIf="stations && displayLegend">
+  <a class="delete" (click)="displayLegend = false"></a>
+  <p><span class="l l1"></span> Voie réservée aux vélos</p>
+  <p><span class="l l2"></span> Rue avec piste cyclable</p>
+  <p><span class="l l3"></span> Rue ou chemin recommandé aux vélos</p>
+  <hr>
+  <p><img src="/assets/icon-4.svg"> Entre 75 et 100% de vélos disponibles</p>
+  <p><img src="/assets/icon-3.svg"> Entre 50 et 75% de vélos disponibles</p>
+  <p><img src="/assets/icon-2.svg"> Entre 25 et 50% de vélos disponibles</p>
+  <p><img src="/assets/icon-1.svg"> Entre 0 et 25% de vélos disponibles</p>
+  <p><img src="/assets/icon-0.svg"> Aucun vélo disponible</p>
+</div>
