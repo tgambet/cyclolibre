@@ -18,10 +18,10 @@ table {
 .available_bikes,
 .bike_stands {
   text-align: right;
-  width: 4.5rem;
+  width: 4.2rem;
 }
 .number {
-  width: 3.5rem;
+  width: 2.5rem;
 }
 .is-closed {
   text-decoration: line-through;
@@ -30,7 +30,7 @@ table {
   position: relative;
   top: 1.5rem;
 }
-.address {
+td.address {
   font-size: 80%;
   vertical-align: middle;
 }
