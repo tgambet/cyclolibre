@@ -101,3 +101,18 @@
   </table>
 
 </div>
+
+<nav class="level" *ngIf="displayedStations">
+  <div class="level-left">
+    <span>{{currentPage}}/{{displayedStations.length}}</span>
+  </div>
+  <div class="level-right">
+    <a class="pagination-previous" (click)="previousPage()" [class.is-disabled]="isFirstPage()"><</a>
+    <a class="pagination-next" (click)="nextPage()" [class.is-disabled]="isLastPage()">></a>
+  </div>
+  <!-- <ul class="pagination-list">
+    <li *ngFor="let station of displayedStations; let i = index">
+      <a class="pagination-link" [class.is-current]="currentPage == i + 1" (click)="changePage(i + 1)">{{i + 1}}</a>
+    </li>
+  </ul> -->
+</nav>

@@ -114,4 +114,12 @@ export class TableComponent implements OnInit {
     this.displayedStations = this.paginate(this.sort(this.filter(this.stations), this.sortedByProperty))
   }
 
+  isLastPage() {
+    return this.currentPage >= this.numberOfPages()
+  }
+
+  isFirstPage() {
+    return this.currentPage == 1
+  }
+
 }

@@ -9,7 +9,6 @@ table {
   font-size: 90%;
   background: transparent;
   color: #F5F5F5;
-
 }
 .table thead th {
   color: #F5F5F5;
@@ -26,4 +25,12 @@ table {
 }
 .is-closed {
   text-decoration: line-through;
+}
+.level {
+  position: relative;
+  top: 1.5rem;
+}
+.address {
+  font-size: 80%;
+  vertical-align: middle;
 }
