@@ -1,17 +1,30 @@
 <div class="container">
 
-<div class="mapLoader" *ngIf="!stations && !error">
-  <span class="icon">
-    <i class="fa fa-circle-o-notch fa-spin"></i>
-  </span>
-  &nbsp;Chargement...
-</div>
-<div class="mapLoader" *ngIf="error" style="color: red; font-weight: bold">
-  {{error}}
+  <div class="mapLoader" *ngIf="!stations && !error">
+    <span class="icon">
+      <i class="fa fa-circle-o-notch fa-spin"></i>
+    </span>
+    &nbsp;Chargement...
+  </div>
+  <div class="mapLoader" *ngIf="error" style="color: red; font-weight: bold">
+    {{error}}
+  </div>
+
 </div>
 
+<div class="container filter" *ngIf="stations">
 
-  <table class="table is-bordered is-narrow is-fullwidth" *ngIf="stations">
+  <p class="control">
+      <span class="filter">
+        <input type="text" class="input is-dark" placeholder="Rechercher une station" [(ngModel)]="urlFilter" (keyup)="changePage(1); updateDisplayedStations()"/>
+      </span>
+  </p>
+
+</div>
+
+<div class="container" *ngIf="stations">
+
+  <table class="table is-bordered is-narrow is-fullwidth" >
     <thead>
       <tr>
         <th class="number">
@@ -62,6 +75,18 @@
             </span>
           </a>
         </th>
+        <th class="bike_stands">
+          <a (click)="sortBy('bike_stands')">
+            Total
+            <span class="icon is-small">
+              <i class="fa"
+                [class.fa-sort-asc]="sortedByAscending.bike_stands && sortedByProperty == 'bike_stands'"
+                [class.fa-sort-desc]="!sortedByAscending.bike_stands && sortedByProperty == 'bike_stands'"
+                [class.fa-sort]="sortedByProperty != 'bike_stands'"
+                aria-hidden="true"></i>
+            </span>
+          </a>
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -70,9 +95,9 @@
         <td class="address">{{station.address}}</td>
         <td class="available_bikes">{{station.available_bikes}}</td>
         <td class="available_bike_stands">{{station.available_bike_stands}}</td>
+        <td class="bike_stands">{{station.bike_stands}}</td>
       </tr>
     </tbody>
   </table>
-
 
 </div>

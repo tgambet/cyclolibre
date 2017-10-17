@@ -36,7 +36,8 @@ export class TableComponent implements OnInit {
     'number': true,
     'address': true,
     'available_bikes': true,
-    'available_bike_stands': true
+    'available_bike_stands': true,
+    'bike_stands': true
   }
 
   currentPage: number = 1
@@ -95,7 +96,7 @@ export class TableComponent implements OnInit {
   filter(stations: Station[]): Station[] {
     return _.filter(
       this.stations,
-      (station: Station) => { return true } //station.address.includes(this.urlFilter) }
+      (station: Station) => station.address.includes(this.urlFilter)
     )
   }
 
