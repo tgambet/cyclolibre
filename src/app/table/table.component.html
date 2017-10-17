@@ -24,7 +24,7 @@
 
 <div class="container" *ngIf="stations">
 
-  <table class="table is-bordered is-narrow is-fullwidth" >
+  <table class="table is-narrow is-fullwidth" >
     <thead>
       <tr>
         <th class="number">
@@ -90,9 +90,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let station of displayedStations[currentPage - 1]">
+      <tr *ngFor="let station of displayedStations[currentPage - 1]" [class.is-closed]="station.status == 'CLOSED'">
         <td class="number">{{station.number}}</td>
-        <td class="address">{{station.address}}</td>
+        <td class="address" title="{{station.name}}">{{station.address}}</td>
         <td class="available_bikes">{{station.available_bikes}}</td>
         <td class="available_bike_stands">{{station.available_bike_stands}}</td>
         <td class="bike_stands">{{station.bike_stands}}</td>

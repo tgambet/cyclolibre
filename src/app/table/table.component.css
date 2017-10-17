@@ -6,4 +6,24 @@
 }
 table {
   margin-bottom: 0;
+  font-size: 90%;
+  background: transparent;
+  color: #F5F5F5;
+
+}
+.table thead th {
+  color: #F5F5F5;
+}
+.number,
+.available_bike_stands,
+.available_bikes,
+.bike_stands {
+  text-align: right;
+  width: 4.5rem;
+}
+.number {
+  width: 3.5rem;
+}
+.is-closed {
+  text-decoration: line-through;
 }

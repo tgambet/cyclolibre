@@ -94,9 +94,12 @@ export class TableComponent implements OnInit {
   }
 
   filter(stations: Station[]): Station[] {
+    function filterBase(station: Station) {
+      return (station.address + ' ' + station.number + ' ' + station.name).toLowerCase();
+    }
     return _.filter(
       this.stations,
-      (station: Station) => station.address.includes(this.urlFilter)
+      (station: Station) => filterBase(station).includes(this.urlFilter.toLowerCase())
     )
   }
 
