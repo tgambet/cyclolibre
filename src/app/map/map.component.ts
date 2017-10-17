@@ -18,7 +18,7 @@ export class MapComponent implements OnInit {
 
   typeLooked: string = "bike"; // or "stand"
 
-  stations: Station[] = [];
+  stations: Station[];
 
   error: string;
 
@@ -49,14 +49,6 @@ export class MapComponent implements OnInit {
       this.lng = _.max(lngs) - (_.max(lngs) - _.min(lngs)) / 2;
       this.zoom = 13;
   }
-
-  // getAvailableBikes() {
-  //   return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bikes, 0);
-  // }
-  //
-  // getAvailableBikeStands() {
-  //   return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bike_stands, 0);
-  // }
 
   clickedStation(stationNumber: string, index: number) {
     console.log(`clicked the marker: ${stationNumber || index}`)

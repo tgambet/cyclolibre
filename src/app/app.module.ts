@@ -17,6 +17,7 @@ import { MapComponent } from './map/map.component';
 import { JcDecauxService } from './services/jc-decaux.service';
 import { ContractComponent } from './contract/contract.component';
 import { ContractResolverService } from './contract/contract-resolver.service';
+import { TableComponent } from './table/table.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -34,7 +35,7 @@ const appRoutes: Routes = [
       },
       {
         path: 'table',
-        component: MapComponent,
+        component: TableComponent,
       }
     ]
   },
@@ -52,6 +53,7 @@ const appRoutes: Routes = [
     NavComponent,
     MapComponent,
     ContractComponent,
+    TableComponent,
   ],
   imports: [
     BrowserModule,

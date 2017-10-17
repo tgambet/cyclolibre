@@ -13,8 +13,6 @@ export class ContractResolverService implements Resolve<Contract> {
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<Contract> {
 
-    console.log(route.params['id'])
-
     return this.jcDecauxService
         .getContract(route.params['id'])
         .then(contract => {

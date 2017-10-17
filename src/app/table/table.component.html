@@ -1,0 +1,78 @@
+<div class="container">
+
+<div class="mapLoader" *ngIf="!stations && !error">
+  <span class="icon">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </span>
+  &nbsp;Chargement...
+</div>
+<div class="mapLoader" *ngIf="error" style="color: red; font-weight: bold">
+  {{error}}
+</div>
+
+
+  <table class="table is-bordered is-narrow is-fullwidth" *ngIf="stations">
+    <thead>
+      <tr>
+        <th class="number">
+          <a (click)="sortBy('number')">
+            n°
+            <span class="icon is-small">
+              <i class="fa"
+                [class.fa-sort-asc]="sortedByAscending.number && sortedByProperty == 'number'"
+                [class.fa-sort-desc]="!sortedByAscending.number && sortedByProperty == 'number'"
+                [class.fa-sort]="sortedByProperty != 'number'"
+                aria-hidden="true"></i>
+            </span>
+          </a>
+        </th>
+        <th class="address">
+          <a (click)="sortBy('address')">
+            Adresse
+            <span class="icon is-small">
+              <i class="fa"
+                [class.fa-sort-asc]="sortedByAscending.address && sortedByProperty == 'address'"
+                [class.fa-sort-desc]="!sortedByAscending.address && sortedByProperty == 'address'"
+                [class.fa-sort]="sortedByProperty != 'address'"
+                aria-hidden="true"></i>
+            </span>
+          </a>
+        </th>
+        <th class="available_bikes">
+          <a (click)="sortBy('available_bikes')">
+            Vélos
+            <span class="icon is-small">
+              <i class="fa"
+                [class.fa-sort-asc]="sortedByAscending.available_bikes && sortedByProperty == 'available_bikes'"
+                [class.fa-sort-desc]="!sortedByAscending.available_bikes && sortedByProperty == 'available_bikes'"
+                [class.fa-sort]="sortedByProperty != 'available_bikes'"
+                aria-hidden="true"></i>
+            </span>
+          </a>
+        </th>
+        <th class="available_bike_stands">
+          <a (click)="sortBy('available_bike_stands')">
+            Empl.
+            <span class="icon is-small">
+              <i class="fa"
+                [class.fa-sort-asc]="sortedByAscending.available_bike_stands && sortedByProperty == 'available_bike_stands'"
+                [class.fa-sort-desc]="!sortedByAscending.available_bike_stands && sortedByProperty == 'available_bike_stands'"
+                [class.fa-sort]="sortedByProperty != 'available_bike_stands'"
+                aria-hidden="true"></i>
+            </span>
+          </a>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let station of displayedStations[currentPage - 1]">
+        <td class="number">{{station.number}}</td>
+        <td class="address">{{station.address}}</td>
+        <td class="available_bikes">{{station.available_bikes}}</td>
+        <td class="available_bike_stands">{{station.available_bike_stands}}</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+</div>
