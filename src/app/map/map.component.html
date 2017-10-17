@@ -1,63 +1,45 @@
-<section class="hero is-fullheight is-dark">
-  <div class="hero-head">
-    <app-nav *ngIf="contract" [contractName]="contract.commercial_name" [contractCity]="contract.name"></app-nav>
-    <app-nav *ngIf="!contract"></app-nav>
-  </div>
-  <div class="hero-body has-text-centered">
-    <div class="field has-addons mapButtons">
-      <p class="control">
-        <a class="button" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'">
-          <span>Vélos</span>
-        </a>
-      </p>
-      <p class="control">
-        <a class="button" (click)="typeLooked = 'stand'" [class.is-dark]="typeLooked == 'stand'">
-          <span>Stands</span>
-        </a>
-      </p>
-    </div>
-    <div class="mapLoader" *ngIf="stations.length == 0">
-      <span class="icon">
-        <i class="fa fa-circle-o-notch fa-spin"></i>
-      </span>
-      &nbsp;Chargement...
-    </div>
-    <agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
-        <agm-marker
-            *ngFor="let s of stations; let i = index"
-            (markerClick)="clickedStation(s.number, i)"
-            [latitude]="s.position.lat"
-            [longitude]="s.position.lng"
-            [iconUrl]="icon(s)">
-          <agm-info-window>
-            <div style="text-align: left; color: black;">
-              <strong>Station n°{{s.number}}</strong><br>
-              {{s.address}}<br>
-              <span *ngIf='s.status == "OPEN"'>
-                Vélos disponibles: <strong>{{s.available_bikes}}</strong><br>
-                Emplacements disponibles: <strong>{{s.available_bike_stands}}</strong><br>
-              </span>
-              <span *ngIf='s.status == "CLOSED"' style="color: red;">
-                <strong>FERMÉE</strong>
-              </span>
-            </div>
-          </agm-info-window>
-        </agm-marker>
-    </agm-map>
-  <!-- <p>Vélos disponibles: {{getAvailableBikes()}}</p>
-  <p>Emplacements disponibles: {{getAvailableBikeStands()}}</p>
-  {{typeLooked}} -->
+<div class="mapLoader" *ngIf="stations.length == 0 && !error">
+  <span class="icon">
+    <i class="fa fa-circle-o-notch fa-spin"></i>
+  </span>
+  &nbsp;Chargement...
+</div>
+<div class="mapLoader" *ngIf="error" style="color: red; font-weight: bold">
+  {{error}}
+</div>
 
-  </div>
-  <div class="hero-foot">
-    <nav class="tabs is-boxed">
-      <div class="container">
-        <ul>
-          <li class="is-active"><a>Carte</a></li>
-          <li><a>Tableau</a></li>
-        </ul>
+<div class="field has-addons mapButtons">
+  <p class="control">
+    <a class="button" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'">
+      <span>Vélos</span>
+    </a>
+  </p>
+  <p class="control">
+    <a class="button" (click)="typeLooked = 'stand'" [class.is-dark]="typeLooked == 'stand'">
+      <span>Emplacements</span>
+    </a>
+  </p>
+</div>
+
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]=zoom [fullscreenControl]=true appMapExtension>
+  <agm-marker
+      *ngFor="let s of stations; let i = index"
+      (markerClick)="clickedStation(s.number, i)"
+      [latitude]="s.position.lat"
+      [longitude]="s.position.lng"
+      [iconUrl]="icon(s)">
+    <agm-info-window>
+      <div style="text-align: left; color: black;">
+        <strong>Station n°{{s.number}}</strong><br>
+        {{s.address}}<br>
+        <span *ngIf='s.status == "OPEN"'>
+          Vélos disponibles: <strong>{{s.available_bikes}}</strong><br>
+          Emplacements disponibles: <strong>{{s.available_bike_stands}}</strong><br>
+        </span>
+        <span *ngIf='s.status == "CLOSED"' style="color: red;">
+          <strong>FERMÉE</strong>
+        </span>
       </div>
-    </nav>
-  </div>
-
-</section>
+    </agm-info-window>
+  </agm-marker>
+</agm-map>

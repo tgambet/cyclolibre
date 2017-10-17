@@ -16,11 +16,9 @@ export class MapComponent implements OnInit {
   lng: number = 1.6273467;
   zoom: number = 6;
 
-  typeLooked: string = "bike";
+  typeLooked: string = "bike"; // or "stand"
 
   stations: Station[] = [];
-
-  contract: Contract;
 
   error: string;
 
@@ -31,31 +29,27 @@ export class MapComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.params
+    this.route.parent.params
         .subscribe((params: Params) => {
-          let id = params['id']
+          let id = params['id'];
           this.jcDecauxService
               .getStations(id)
               .then(stations => {
-                this.centerMap(stations);
+                this.centerMap(stations)
                 this.stations = stations
               })
-              .catch(error => this.error = error.statusText);
-          this.jcDecauxService
-              .getContract(id)
-              .then(contract => this.contract = contract)
               .catch(error => this.error = error.statusText);
         });
   }
 
   centerMap(stations: Station[]) {
-      let lats = _.map(stations, (station: Station) => station.position.lat)
-      let lngs = _.map(stations, (station: Station) => station.position.lng)
+      let lats = _.map(stations, (station: Station) => station.position.lat);
+      let lngs = _.map(stations, (station: Station) => station.position.lng);
       let lat = _.reduce(lats, (acc, lat) => acc + lat) / lats.length;
       let lng = _.reduce(lngs, (acc, lng) => acc + lng) / lngs.length;
       this.lat = lat;
       this.lng = lng;
-      this.zoom = 12;
+      this.zoom = 13;
   }
 
   // getAvailableBikes() {

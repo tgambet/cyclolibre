@@ -5,9 +5,6 @@ agm-map, .mapLoader {
   left: 0;
   top: 0;
 }
-.hero-body {
-  position: relative;
-}
 .mapLoader {
   color: white;
   z-index: 10;

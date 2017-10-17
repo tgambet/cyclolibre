@@ -15,14 +15,30 @@ import { NavComponent } from './nav/nav.component';
 import { MapComponent } from './map/map.component';
 
 import { JcDecauxService } from './services/jc-decaux.service';
+import { ContractComponent } from './contract/contract.component';
+import { ContractResolverService } from './contract/contract-resolver.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: ':id', component: MapComponent },
-  //{ path: 'map', component: HeroListComponent },
-  //{ path: 'table', component: HeroListComponent },
-  //{ path: '',   redirectTo: '/heroes', pathMatch: 'full' },
+  {
+    path: ':id',
+    component: ContractComponent,
+    resolve: {
+      contract: ContractResolverService
+    },
+    children: [
+      {
+        path: '',
+        component: MapComponent,
+      },
+      {
+        path: 'table',
+        component: MapComponent,
+      }
+    ]
+  },
+  //{ path: ':id/table', component: MapComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -35,6 +51,7 @@ const appRoutes: Routes = [
     HomeComponent,
     NavComponent,
     MapComponent,
+    ContractComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,7 +68,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     GoogleMapsAPIWrapper,
-    JcDecauxService
+    JcDecauxService,
+    ContractResolverService
   ],
   bootstrap: [AppComponent]
 })
