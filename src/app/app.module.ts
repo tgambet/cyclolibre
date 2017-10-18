@@ -18,10 +18,12 @@ import { JcDecauxService } from './services/jc-decaux.service';
 import { ContractComponent } from './contract/contract.component';
 import { ContractResolverService } from './contract/contract-resolver.service';
 import { TableComponent } from './table/table.component';
+import { SettingsComponent } from './settings/settings.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'settings', component: SettingsComponent },
   {
     path: ':id',
     component: ContractComponent,
@@ -54,6 +56,7 @@ const appRoutes: Routes = [
     MapComponent,
     ContractComponent,
     TableComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
