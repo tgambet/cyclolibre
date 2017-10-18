@@ -21,14 +21,20 @@
   </p>
 </div>
 
-<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [fullscreenControl]=true appMapExtension>
+<agm-map
+    #gm
+    [latitude]="lat"
+    [longitude]="lng"
+    [zoom]="zoom"
+    [fullscreenControl]=true
+    appMapExtension>
   <agm-marker
       *ngFor="let s of stations; let i = index"
-      (markerClick)="clickedStation(s.number, i)"
+      (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedStation(s.number, i)"
       [latitude]="s.position.lat"
       [longitude]="s.position.lng"
       [iconUrl]="icon(s)">
-    <agm-info-window>
+    <agm-info-window #infoWindow>
       <div style="text-align: left; color: black;">
         <strong>Station n°{{s.number}}</strong><br>
         {{s.address}}<br>

@@ -53,7 +53,7 @@ export class MapComponent implements OnInit {
   }
 
   clickedStation(stationNumber: string, index: number) {
-    console.log(`clicked the marker: ${stationNumber || index}`)
+    //console.log(`clicked the marker: ${stationNumber || index}`)
   }
 
   icon(s: Station) {

@@ -13,7 +13,7 @@ export class JcDecauxService {
 
   apiKey = '8d872049485a3cd80d956d3f53aaeda5427d47e4';
 
-  serviceUrl = 'https://api.jcdecaux.com/vls/v1/';
+  serviceUrl = 'https://api.jcdecaux.com/vls/v1';
 
   getContract(contractName: string): Promise<Contract> {
     if (this.contracts) {
@@ -30,7 +30,7 @@ export class JcDecauxService {
       if (this.contracts) {
         resolve(this.contracts);
       } else {
-        this.http.get(this.serviceUrl + 'contracts?apiKey=' + this.apiKey).subscribe(
+        this.http.get(`${this.serviceUrl}/contracts?apiKey=${this.apiKey}`).subscribe(
           data => {
             let results = [];
             for (let i in data) {
@@ -47,7 +47,7 @@ export class JcDecauxService {
 
   getStations(contractName: string): Promise<Station[]> {
     return new Promise((resolve, reject) => {
-      this.http.get(this.serviceUrl + 'stations?apiKey=' + this.apiKey + '&contract=' + contractName).subscribe(
+      this.http.get(`${this.serviceUrl}/stations?apiKey=${this.apiKey}&contract=${contractName}`).subscribe(
         data => {
           let results = [];
           for (let i in data) {
