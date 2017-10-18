@@ -4,6 +4,9 @@
 .container.filter {
   top: -1.5rem;
 }
+.filter .icon {
+  pointer-events: auto;
+}
 table {
   margin-bottom: 0;
   font-size: 90%;

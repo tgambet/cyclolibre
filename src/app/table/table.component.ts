@@ -44,7 +44,7 @@ export class TableComponent implements OnInit {
 
   perPage: number = 15;
 
-  urlFilter: string = ""
+  stationFilter: string = ""
 
   ngOnInit() {
     this.route.parent.params
@@ -99,7 +99,7 @@ export class TableComponent implements OnInit {
     }
     return _.filter(
       this.stations,
-      (station: Station) => filterBase(station).includes(this.urlFilter.toLowerCase())
+      (station: Station) => filterBase(station).includes(this.stationFilter.toLowerCase())
     )
   }
 
