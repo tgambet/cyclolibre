@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { AgmInfoWindow } from '@agm/core';
 
 import { JcDecauxService, Station, Contract } from '../services/jc-decaux.service';
 
@@ -10,7 +11,7 @@ import * as _ from 'lodash';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnDestroy {
 
   lat: number = 46.7131494;
   lng: number = 1.6273467;
@@ -24,6 +25,10 @@ export class MapComponent implements OnInit {
 
   error: string;
 
+  autoUpdateInterval: number = 60000;
+
+  intervalID: number;
+
   constructor(
     private jcDecauxService: JcDecauxService,
     private router: Router,
@@ -33,7 +38,9 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this.route.parent.params
         .subscribe((params: Params) => {
+
           let id = params['id'];
+
           this.jcDecauxService
               .getStations(id)
               .then(stations => {
@@ -41,7 +48,33 @@ export class MapComponent implements OnInit {
                 this.stations = stations
               })
               .catch(error => this.error = error.statusText);
+
+          this.intervalID = window.setInterval(() => {
+            this.jcDecauxService
+                .getStations(id)
+                .then(stations => {
+                  _.forEach(stations, (station) => {
+                    let s = _.find(this.stations, { 'number': station.number })
+                    if (s) {
+                      s.bike_stands = station.bike_stands;
+                      s.available_bikes = station.available_bikes;
+                      s.available_bike_stands = station.available_bike_stands;
+                      s.position = station.position;
+                      s.status = station.status;
+                      s.lastUpdate = station.lastUpdate;
+                    } else {
+                      this.stations.push(station);
+                    }
+                  });
+                })
+                .catch(error => console.log(error));
+          }, this.autoUpdateInterval);
         });
+  }
+
+  ngOnDestroy() {
+    if (this.intervalID)
+      clearInterval(this.intervalID);
   }
 
   centerMap(stations: Station[]) {

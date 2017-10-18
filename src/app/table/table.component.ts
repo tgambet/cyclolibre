@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { JcDecauxService, Station, Contract } from '../services/jc-decaux.service';
@@ -10,7 +10,7 @@ import * as _ from 'lodash';
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.css']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
 
   constructor(
     private jcDecauxService: JcDecauxService,
@@ -44,20 +44,43 @@ export class TableComponent implements OnInit {
 
   perPage: number = 15;
 
-  stationFilter: string = ""
+  stationFilter: string = "";
+
+  autoUpdateInterval: number = 60000;
+
+  intervalID: number;
 
   ngOnInit() {
     this.route.parent.params
         .subscribe((params: Params) => {
+
           let id = params['id'];
+
           this.jcDecauxService
               .getStations(id)
               .then(stations => {
-                this.stations = stations
-                this.updateDisplayedStations()
+                this.stations = stations;
+                this.updateDisplayedStations();
               })
               .catch(error => this.error = error.statusText);
+
+          this.intervalID = window.setInterval(() => {
+            this.jcDecauxService
+                .getStations(id)
+                .then(stations => {
+                  this.stations = stations;
+                  this.updateDisplayedStations();
+                })
+                .catch(error => console.log(error));
+          }, this.autoUpdateInterval);
+
         });
+
+  }
+
+  ngOnDestroy() {
+    if (this.intervalID)
+      clearInterval(this.intervalID);
   }
 
   getAvailableBikes() {
