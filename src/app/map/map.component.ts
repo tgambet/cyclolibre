@@ -69,11 +69,11 @@ export class MapComponent implements OnInit {
       return 'assets/icon.svg';
     let percentage =
       this.typeLooked == "bike" ? s.available_bikes / s.bike_stands : s.available_bike_stands / s.bike_stands;
-    if (percentage > 0.75)
+    if (percentage >= 0.75)
       return 'assets/icon-4.svg';
-    if (percentage > 0.50)
+    if (percentage >= 0.50)
       return 'assets/icon-3.svg';
-    if (percentage > 0.25)
+    if (percentage >= 0.25)
       return 'assets/icon-2.svg';
     if (percentage > 0)
       return 'assets/icon-1.svg';
