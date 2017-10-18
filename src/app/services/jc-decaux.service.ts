@@ -36,7 +36,11 @@ export class JcDecauxService {
             for (let i in data) {
               results.push(data[i]);
             }
-            this.contracts = _.sortBy(_.filter(results, {country_code: "FR"}), ["name"]);
+            this.contracts = _.sortBy(
+              //_.filter(results, {country_code: "FR"}),
+              results, 
+              ["name"]
+            );
             resolve(this.contracts);
           },
           err => reject(err)
@@ -49,11 +53,11 @@ export class JcDecauxService {
     return new Promise((resolve, reject) => {
       this.http.get(`${this.serviceUrl}/stations?apiKey=${this.apiKey}&contract=${contractName}`).subscribe(
         data => {
-          let results = [];
+          let stations = [];
           for (let i in data) {
-            results.push(data[i]);
+            stations.push(data[i]);
           }
-          resolve(results);
+          resolve(stations);
         },
         err => reject(err)
       );
@@ -68,6 +72,20 @@ export interface Contract {
   commercial_name: string,
   country_code: string
 }
+
+/**
+
+Nom du contrat
+Nom commercial
+Villes concernées
+Opérateur
+Nombre de stations
+Nombre d'emplacements total
+Nombre d'emplacements disponibles
+Nombre de vélos disponibles
+Dernière mise à jour des données
+
+*/
 
 export interface Station {
   number: number,

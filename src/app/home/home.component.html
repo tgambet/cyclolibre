@@ -15,9 +15,11 @@
       <div class="select is-dark" *ngIf="contracts.length > 0">
         <select (change)="onChange($event.target.value)">
           <option disabled>Choisissez une ville</option>
-          <option *ngFor="let c of contracts; let i = index" [value]="c.name">
-            {{c.name}} ({{c.commercial_name}})
-          </option>
+          <optgroup *ngFor="let group of contracts" [label]="group.countryCode">
+            <option *ngFor="let contract of group.contracts" [value]="contract.name">
+              {{contract.name}} ({{contract.commercial_name}})
+            </option>
+          </optgroup>
         </select>
       </div>
       <div *ngIf="contracts.length == 0 && !error">

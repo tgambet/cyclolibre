@@ -18,13 +18,41 @@ export class HomeComponent implements OnInit {
     private jcDecauxService: JcDecauxService
   ) {}
 
-  contracts: Contract[] = [];
+  contracts: { countryCode: string, contracts: Contract[] }[] = []
+
+  countryName = {
+    'FR': 'France',
+    'SE': 'Suède',
+    'ES': 'Espagne',
+    'BE': 'Belgique',
+    'AU': 'Australie',
+    'IE': 'Ireland',
+    'RU': 'Russie',
+    'NO': 'Norvège',
+    'SI': 'Slovénie',
+    'LU': 'Luxembourg',
+    'JP': 'Japon',
+    'LT': 'Lithuanie'
+  }
 
   error: string
 
   ngOnInit() {
     this.jcDecauxService.getContracts().then(
-      contracts => this.contracts = contracts,
+      contracts => {
+        let grouped = _.groupBy(contracts, 'country_code')
+        for (let i in grouped) {
+          this.contracts.push({
+            countryCode: this.countryName[i] ? this.countryName[i] : i,
+            contracts: grouped[i]
+          })
+        }
+        this.contracts = _.sortBy(
+          //_.sortBy(this.contracts, ['country_code']).reverse(),
+          this.contracts,
+          (test) => test.contracts.length
+        ).reverse();
+      },
       error => this.error = error.statusText
     )
   }
