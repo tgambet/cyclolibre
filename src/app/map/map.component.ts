@@ -45,11 +45,19 @@ export class MapComponent implements OnInit {
   }
 
   centerMap(stations: Station[]) {
+      // define lat and lng
       let lats = _.map(stations, (station: Station) => station.position.lat);
       let lngs = _.map(stations, (station: Station) => station.position.lng);
       this.lat = _.max(lats) - (_.max(lats) - _.min(lats)) / 2;
       this.lng = _.max(lngs) - (_.max(lngs) - _.min(lngs)) / 2;
-      this.zoom = 13;
+      // define the zoom
+      let latSpread = _.max(lats) - _.min(lats)
+      let lngSpread = _.max(lngs) - _.min(lngs)
+      if (latSpread < 0.025 && lngSpread < 0.03)
+        return this.zoom = 15;
+      if (latSpread < 0.035 && lngSpread < 0.06)
+        return this.zoom = 14;
+      return this.zoom = 13;
   }
 
   clickedStation(stationNumber: string, index: number) {
