@@ -21,10 +21,10 @@ table {
 .available_bikes,
 .bike_stands {
   text-align: right;
-  width: 4.2rem;
+  width: 4.6rem;
 }
 .number {
-  width: 2.5rem;
+  width: 3rem;
   padding: 0 0.2rem 0 0 !important;
   vertical-align: middle;
 }
