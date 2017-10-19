@@ -21,6 +21,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   stations: Station[];
 
+  contract: Contract;
+
   error: string;
 
   autoUpdateInterval: number = 60000;
@@ -29,7 +31,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   geoLocalized: boolean = false;
 
-  showInfo: boolean = true;
+  showInfo: boolean = false;
 
   constructor(
     private jcDecauxService: JcDecauxService,
@@ -42,6 +44,13 @@ export class MapComponent implements OnInit, OnDestroy {
         .subscribe((params: Params) => {
 
           let id = params['id'];
+
+          this.jcDecauxService
+              .getContract(id)
+              .then((contract: Contract) => {
+                this.contract = contract
+              })
+              .catch(error => this.error = error.statusText);
 
           this.jcDecauxService
               .getStations(id)
@@ -113,6 +122,18 @@ export class MapComponent implements OnInit, OnDestroy {
     if (percentage > 0)
       return 'assets/icon-1.svg';
     return 'assets/icon-0.svg';
+  }
+
+  getAvailableBikes() {
+    return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bikes, 0);
+  }
+
+  getTotalStands() {
+    return _.reduce(this.stations, (a: number, b: Station) => a + b.bike_stands, 0);
+  }
+
+  getAvailableBikeStands() {
+    return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bike_stands, 0);
   }
 
 }

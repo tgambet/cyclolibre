@@ -7,12 +7,20 @@
 <div class="overlay map-error" *ngIf="error" style="color: red; font-weight: bold">
   {{error}}
 </div>
-<div class="overlay" *ngIf="showInfo" (click)="showInfo = false">
+<div class="overlay" *ngIf="showInfo && contract && stations" (click)="showInfo = false">
   <div class="legend" *ngIf="true" (click)="$event.stopPropagation()">
     <a class="delete" (click)="showInfo = false"></a>
+    <h2>Informations</h2>
+    <p>
+      {{contract.commercial_name}} comprend {{stations.length}} stations pour un total de {{getTotalStands()}} emplacements.
+      Il y a actuellement {{getAvailableBikes()}} vélos disponibles pour {{getAvailableBikeStands()}} emplacements libres.
+    </p>
+    <p></p>
+    <h2>Légende</h2>
     <p><span class="l l1"></span> Voie réservée aux vélos</p>
     <p><span class="l l2"></span> Rue avec piste cyclable</p>
     <p><span class="l l3"></span> Rue ou chemin recommandé aux vélos</p>
+    <p class="source">Source: Google</p>
     <hr>
     <p><img src="/assets/icon-4.svg" width="12"> Entre 75 et 100% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
     <p><img src="/assets/icon-3.svg" width="12"> Entre 50 et 75% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
@@ -20,17 +28,18 @@
     <p><img src="/assets/icon-1.svg" width="12"> Entre 0 et 25% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
     <p><img src="/assets/icon-0.svg" width="12"> Aucun <span *ngIf="typeLooked == 'bike'">vélo</span><span *ngIf="typeLooked == 'stand'">emplacement</span> disponible</p>
     <p><img src="/assets/icon.svg" width="12"> Station fermée</p>
+    <p class="source">Source: JCDecaux</p>
   </div>
 </div>
 
 <div class="field has-addons mapButtons" *ngIf="stations">
   <p class="control">
-    <a class="button" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'">
+    <a class="button" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'" title="Trouver un vélo disponible">
       <span>Vélos</span>
     </a>
   </p>
   <p class="control">
-    <a class="button" (click)="typeLooked = 'stand'" [class.is-dark]="typeLooked == 'stand'">
+    <a class="button" (click)="typeLooked = 'stand'" [class.is-dark]="typeLooked == 'stand'" title="Trouver un emplacement disponible">
       <span>Emplacements</span>
     </a>
   </p>
