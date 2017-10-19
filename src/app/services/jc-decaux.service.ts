@@ -38,7 +38,7 @@ export class JcDecauxService {
             }
             this.contracts = _.sortBy(
               //_.filter(results, {country_code: "FR"}),
-              results, 
+              results,
               ["name"]
             );
             resolve(this.contracts);
@@ -72,20 +72,6 @@ export interface Contract {
   commercial_name: string,
   country_code: string
 }
-
-/**
-
-Nom du contrat
-Nom commercial
-Villes concernées
-Opérateur
-Nombre de stations
-Nombre d'emplacements total
-Nombre d'emplacements disponibles
-Nombre de vélos disponibles
-Dernière mise à jour des données
-
-*/
 
 export interface Station {
   number: number,
