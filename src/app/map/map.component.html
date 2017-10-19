@@ -54,9 +54,9 @@
     </a>
   </p>
   <p>
-    <a class="button location" (click)="geoLocalized = !geoLocalized" [class.is-dark]="geoLocalized">
-      <img src="assets/location.svg" height="26" width="26" *ngIf="geoLocalized">
-      <img src="assets/location-not-fixed.svg" height="26" width="26" *ngIf="!geoLocalized">
+    <a class="button location" (click)="toggleGeoLocalization()" [class.is-loading]="isGeolocalizing()" [class.is-dark]="isGeolocalized()" >
+      <img src="assets/location.svg" height="26" width="26" *ngIf="isGeolocalized()">
+      <img src="assets/location-not-fixed.svg" height="26" width="26" *ngIf="isNotGeolocalized()">
     </a>
   </p>
 </div>
@@ -67,6 +67,7 @@
     [longitude]="lng"
     [zoom]="zoom"
     [fullscreenControl]=true
+    (centerChange)="onCenterChange($event)"
     appMapExtension>
   <agm-marker
       *ngFor="let s of stations; let i = index"
@@ -87,5 +88,10 @@
         </span>
       </div>
     </agm-info-window>
+  </agm-marker>
+  <agm-marker
+      *ngIf="userPosition"
+      [latitude]="userPosition.latitude"
+      [longitude]="userPosition.longitude">
   </agm-marker>
 </agm-map>

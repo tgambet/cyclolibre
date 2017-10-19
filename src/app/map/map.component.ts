@@ -29,8 +29,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   intervalID: number;
 
-  geoLocalized: boolean = false;
-
   showInfo: boolean = false;
 
   constructor(
@@ -86,6 +84,8 @@ export class MapComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.intervalID)
       clearInterval(this.intervalID);
+    if (this.geoWatchId)
+      navigator.geolocation.clearWatch(this.geoWatchId);
   }
 
   centerMap(stations: Station[]) {
@@ -134,6 +134,61 @@ export class MapComponent implements OnInit, OnDestroy {
 
   getAvailableBikeStands() {
     return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bike_stands, 0);
+  }
+
+  isNotGeolocalized() {
+    return !this.geoWatchId;
+  }
+
+  isGeolocalized() {
+    return this.geoWatchId && this.userPosition;
+  }
+
+  isGeolocalizing() {
+    return this.geoWatchId && !this.userPosition;
+  }
+
+  geoWatchId: number;
+
+  userPosition: { latitude: number, longitude: number }
+
+  toggleGeoLocalization() {
+    if ("geolocation" in navigator) {
+      if (this.isGeolocalizing()) {
+        return;
+      } else if (this.isGeolocalized()) {
+        navigator.geolocation.clearWatch(this.geoWatchId);
+        this.geoWatchId = null;
+        this.userPosition = null;
+      } else {
+        this.geoWatchId = navigator.geolocation.watchPosition(
+          (position) => {
+            // The first time center map on user position
+            if (!this.userPosition) {
+              this.lat = position.coords.latitude;
+              this.lng = position.coords.longitude;
+            }
+            this.userPosition = {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+          },
+          (error) => { console.log(error) },
+          {
+            enableHighAccuracy: true,
+            maximumAge        : 0,
+            timeout           : 30000
+          }
+        );
+      }
+    } else {
+      /* geolocation IS NOT available */
+    }
+  }
+
+  onCenterChange(event) {
+    this.lat = event.lat;
+    this.lng = event.lng;
   }
 
 }

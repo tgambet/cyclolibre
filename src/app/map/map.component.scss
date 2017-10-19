@@ -30,6 +30,7 @@ agm-map, .overlay {
 }
 .legend .source {
   font-size: 80%;
+  font-style: italic; 
 }
 
 .mapButtons, .mapButtons2 {
@@ -70,6 +71,10 @@ hr {
 .l.l3 {
   border-color: rgb(22,146,22);
   border-style: dashed;
+}
+
+.button.is-loading {
+  width: 36px;
 }
 
 .delete {
