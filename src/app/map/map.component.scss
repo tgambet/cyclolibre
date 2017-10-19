@@ -1,11 +1,11 @@
-agm-map, .mapLoader {
+agm-map, .overlay {
   height: 100%;
   width: 100%;
   position: absolute;
   left: 0;
   top: 0;
 }
-.mapLoader {
+.overlay {
   color: white;
   z-index: 10;
   background-color: rgba(0,0,0,0.7);
@@ -13,24 +13,32 @@ agm-map, .mapLoader {
   align-items: center;
   justify-content: center;
 }
-.mapButtons {
+.overlay .legend {
+  background-color: rgba(0,0,0,0.7);
+  border-radius: 2px;
+  text-align: left;
+  padding: 0.5rem;
+  position: relative;
+}
+.mapButtons, .mapButtons2 {
   position: absolute;
   z-index: 5;
   top: 0.5rem;
   left: 0.5rem;
   margin: 0;
 }
-.mapLegend {
-  position: absolute;
-  z-index: 5;
-  bottom: 1.7rem;
+.mapButtons2 {
+  top: 3.3rem;
   left: 0.5rem;
-  background: rgba(54,54,54,0.9);
-  text-align: left;
-  font-size: 70%;
-  padding: 0.25rem;
-  border-radius: 2px;
 }
+.mapButtons2 p {
+  margin-bottom: 0.5rem;
+}
+.button.location {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
 hr {
   margin: 0.3rem 0;
 }
@@ -38,7 +46,8 @@ hr {
   border: 1px solid;
   display: inline-block;
   width: 12px;
-  line-height: 0rem;
+  line-height: 0;
+  vertical-align: middle;
 }
 .l.l1 {
   border-color: rgb(13,86,13);
@@ -50,7 +59,6 @@ hr {
   border-color: rgb(22,146,22);
   border-style: dashed;
 }
-
 
 .delete {
   -webkit-touch-callout: none;

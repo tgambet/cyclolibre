@@ -5,7 +5,7 @@
           <img src="assets/biker.svg" width="28" style="margin-right: 0.5rem"/>
           <span>CycloLibre</span>
       </a>
-      <a class="navbar-item is-active" *ngIf="contractCity && contractName">
+      <a class="navbar-item is-active" *ngIf="contractCity && contractName" [routerLink]="'/' + contractCity.toLowerCase()">
         {{contractCity}} ({{contractName}})
       </a>
       <div class="navbar-burger burger" [class.is-active]="isOpen" (click)="isOpen = !isOpen">

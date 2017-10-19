@@ -1,11 +1,26 @@
-<div class="mapLoader" *ngIf="!stations && !error">
+<div class="overlay" *ngIf="!stations && !error">
   <span class="icon">
     <i class="fa fa-circle-o-notch fa-spin"></i>
   </span>
   &nbsp;Chargement...
 </div>
-<div class="mapLoader" *ngIf="error" style="color: red; font-weight: bold">
+<div class="overlay map-error" *ngIf="error" style="color: red; font-weight: bold">
   {{error}}
+</div>
+<div class="overlay" *ngIf="showInfo" (click)="showInfo = false">
+  <div class="legend" *ngIf="true" (click)="$event.stopPropagation()">
+    <a class="delete" (click)="showInfo = false"></a>
+    <p><span class="l l1"></span> Voie réservée aux vélos</p>
+    <p><span class="l l2"></span> Rue avec piste cyclable</p>
+    <p><span class="l l3"></span> Rue ou chemin recommandé aux vélos</p>
+    <hr>
+    <p><img src="/assets/icon-4.svg" width="12"> Entre 75 et 100% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
+    <p><img src="/assets/icon-3.svg" width="12"> Entre 50 et 75% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
+    <p><img src="/assets/icon-2.svg" width="12"> Entre 25 et 50% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
+    <p><img src="/assets/icon-1.svg" width="12"> Entre 0 et 25% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
+    <p><img src="/assets/icon-0.svg" width="12"> Aucun <span *ngIf="typeLooked == 'bike'">vélo</span><span *ngIf="typeLooked == 'stand'">emplacement</span> disponible</p>
+    <p><img src="/assets/icon.svg" width="12"> Station fermée</p>
+  </div>
 </div>
 
 <div class="field has-addons mapButtons" *ngIf="stations">
@@ -17,6 +32,22 @@
   <p class="control">
     <a class="button" (click)="typeLooked = 'stand'" [class.is-dark]="typeLooked == 'stand'">
       <span>Emplacements</span>
+    </a>
+  </p>
+</div>
+
+<div class="field mapButtons2" *ngIf="stations">
+  <p>
+    <a class="button" (click)="showInfo = true" [class.is-dark]="showInfo" title="Informations et légende">
+      <span class="icon">
+        <i class="fa fa-info"></i>
+      </span>
+    </a>
+  </p>
+  <p>
+    <a class="button location" (click)="geoLocalized = !geoLocalized" [class.is-dark]="geoLocalized">
+      <img src="assets/location.svg" height="26" width="26" *ngIf="geoLocalized">
+      <img src="assets/location-not-fixed.svg" height="26" width="26" *ngIf="!geoLocalized">
     </a>
   </p>
 </div>
@@ -49,17 +80,3 @@
     </agm-info-window>
   </agm-marker>
 </agm-map>
-
-<div class="mapLegend" *ngIf="stations && displayLegend">
-  <a class="delete" (click)="displayLegend = false"></a>
-  <p><span class="l l1"></span> Voie réservée aux vélos</p>
-  <p><span class="l l2"></span> Rue avec piste cyclable</p>
-  <p><span class="l l3"></span> Rue ou chemin recommandé aux vélos</p>
-  <hr>
-  <p><img src="/assets/icon-4.svg" width="12"> Entre 75 et 100% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
-  <p><img src="/assets/icon-3.svg" width="12"> Entre 50 et 75% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
-  <p><img src="/assets/icon-2.svg" width="12"> Entre 25 et 50% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
-  <p><img src="/assets/icon-1.svg" width="12"> Entre 0 et 25% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
-  <p><img src="/assets/icon-0.svg" width="12"> Aucun <span *ngIf="typeLooked == 'bike'">vélo</span><span *ngIf="typeLooked == 'stand'">emplacement</span> disponible</p>
-  <p><img src="/assets/icon.svg" width="12"> Station fermée</p>
-</div>

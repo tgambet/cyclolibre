@@ -19,8 +19,6 @@ export class MapComponent implements OnInit, OnDestroy {
 
   typeLooked: string = "bike"; // or "stand"
 
-  displayLegend: boolean = true;
-
   stations: Station[];
 
   error: string;
@@ -28,6 +26,10 @@ export class MapComponent implements OnInit, OnDestroy {
   autoUpdateInterval: number = 60000;
 
   intervalID: number;
+
+  geoLocalized: boolean = false;
+
+  showInfo: boolean = true;
 
   constructor(
     private jcDecauxService: JcDecauxService,
