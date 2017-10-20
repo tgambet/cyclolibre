@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const path = require('path');
 
 // const forceSSL = function() {
 //   return function (req, res, next) {
