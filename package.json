@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "if [ $PRODUCTION ]; then ng build --aot -prod; else ng build; fi"
+    "postinstall": "if [ $PRODUCTION = 'true' ]; then ng build --aot -prod; else ng build; fi"
   },
   "private": true,
   "dependencies": {
