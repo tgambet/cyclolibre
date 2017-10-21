@@ -19,6 +19,8 @@ import { ContractComponent } from './contract/contract.component';
 import { ContractResolverService } from './contract/contract-resolver.service';
 import { TableComponent } from './table/table.component';
 
+import { environment } from '../environments/environment';
+
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -58,7 +60,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCFi9RePFTxmDzbOrrF60_gbX1xS7MYEU8',
+      apiKey: environment.gmApiKey,
       libraries: ["places"]
     }),
     HttpClientModule,

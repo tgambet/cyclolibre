@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+import { environment } from '../../environments/environment'
+
 import * as _ from 'lodash';
 
 @Injectable()
@@ -11,7 +14,7 @@ export class JcDecauxService {
 
   contracts: Contract[];
 
-  apiKey = '8d872049485a3cd80d956d3f53aaeda5427d47e4';
+  apiKey = environment.jcDecauxApiKey;
 
   serviceUrl = 'https://api.jcdecaux.com/vls/v1';
 
