@@ -9,7 +9,11 @@
 </div>
 <div class="overlay" *ngIf="showInfo && contract && stations" (click)="showInfo = false">
   <div class="legend" *ngIf="true" (click)="$event.stopPropagation()">
-    <a class="delete" (click)="showInfo = false"></a>
+    <a class="delete" (click)="showInfo = false">
+      <span class="icon">
+        <i class="fa fa-remove"></i>
+      </span>
+    </a>
     <h2>Informations</h2>
     <p>
       {{contract.commercial_name}} comprend {{stations.length}} stations pour un total de {{getTotalStands()}} emplacements.
@@ -67,6 +71,7 @@
     [longitude]="lng"
     [zoom]="zoom"
     [fullscreenControl]=true
+    [streetViewControl]=false
     (centerChange)="onCenterChange($event)"
     appMapExtension>
   <agm-marker
