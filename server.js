@@ -13,9 +13,11 @@ const forceSSL = function() {
     next();
   }
 }
-app.use(forceSSL());
 
-app.use(compression());
+if (process.env.PRODUCTION == "true") {
+  app.use(forceSSL());
+  app.use(compression());
+}
 
 app.use(express.static(__dirname + '/dist'));
 
