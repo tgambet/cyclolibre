@@ -15,6 +15,7 @@ import { NavComponent } from './nav/nav.component';
 import { MapComponent } from './map/map.component';
 
 import { JcDecauxService } from './services/jc-decaux.service';
+import { CitybikesService } from './services/citybikes.service';
 import { ContractComponent } from './contract/contract.component';
 import { ContractResolverService } from './contract/contract-resolver.service';
 import { TableComponent } from './table/table.component';
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
   providers: [
     GoogleMapsAPIWrapper,
     JcDecauxService,
+    CitybikesService,
     ContractResolverService
   ],
   bootstrap: [AppComponent]
