@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 
-import { JcDecauxService, Contract } from '../services/jc-decaux.service';
 import { CitybikesService, Network } from '../services/citybikes.service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { JcDecauxService, Station, Contract } from '../services/jc-decaux.service';
+import { CitybikesService, Station, Network } from '../services/citybikes.service';
 
 import * as _ from 'lodash';
 
@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 export class TableComponent implements OnInit, OnDestroy {
 
   constructor(
-    private jcDecauxService: JcDecauxService,
+    private service: CitybikesService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -22,7 +22,7 @@ export class TableComponent implements OnInit, OnDestroy {
     this.updateDisplayedStations()
   }
 
-  contract: Contract
+  network: Network
 
   stations: Station[]
 
@@ -56,7 +56,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
           let id = params['id'];
 
-          this.jcDecauxService
+          this.service
               .getStations(id)
               .then(stations => {
                 this.stations = stations;
@@ -65,7 +65,7 @@ export class TableComponent implements OnInit, OnDestroy {
               .catch(error => this.error = error.statusText);
 
           this.intervalID = window.setInterval(() => {
-            this.jcDecauxService
+            this.service
                 .getStations(id)
                 .then(stations => {
                   this.stations = stations;
@@ -81,14 +81,6 @@ export class TableComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.intervalID)
       clearInterval(this.intervalID);
-  }
-
-  getAvailableBikes() {
-    return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bikes, 0);
-  }
-
-  getAvailableBikeStands() {
-    return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bike_stands, 0);
   }
 
   nextPage(): void {
@@ -118,7 +110,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   filter(stations: Station[]): Station[] {
     function filterBase(station: Station) {
-      return (station.address + ' ' + station.number + ' ' + station.name).toLowerCase();
+      return (station.name).toLowerCase();
     }
     return _.filter(
       this.stations,

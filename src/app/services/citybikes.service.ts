@@ -85,5 +85,5 @@ export interface Station {
   free_bikes: number,
   empty_slots: number,
   timestamp: string,
-  extra: object
+  extra?: object
 }

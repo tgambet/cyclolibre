@@ -14,10 +14,9 @@ import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { MapComponent } from './map/map.component';
 
-import { JcDecauxService } from './services/jc-decaux.service';
 import { CitybikesService } from './services/citybikes.service';
-import { ContractComponent } from './contract/contract.component';
-import { ContractResolverService } from './contract/contract-resolver.service';
+import { NetworkComponent } from './network/network.component';
+import { NetworkResolverService } from './network/network-resolver.service';
 import { TableComponent } from './table/table.component';
 
 import { environment } from '../environments/environment';
@@ -27,9 +26,9 @@ const appRoutes: Routes = [
   { path: 'about', component: AboutComponent },
   {
     path: ':id',
-    component: ContractComponent,
+    component: NetworkComponent,
     resolve: {
-      contract: ContractResolverService
+      network: NetworkResolverService
     },
     children: [
       {
@@ -55,7 +54,7 @@ const appRoutes: Routes = [
     HomeComponent,
     NavComponent,
     MapComponent,
-    ContractComponent,
+    NetworkComponent,
     TableComponent,
   ],
   imports: [
@@ -73,9 +72,8 @@ const appRoutes: Routes = [
   ],
   providers: [
     GoogleMapsAPIWrapper,
-    JcDecauxService,
     CitybikesService,
-    ContractResolverService
+    NetworkResolverService
   ],
   bootstrap: [AppComponent]
 })
