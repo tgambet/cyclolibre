@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import * as _ from 'lodash';
 
-import { JcDecauxService, Contract } from '../services/jc-decaux.service'
+import { JcDecauxService, Contract } from '../services/jc-decaux.service';
+import { CitybikesService, Network } from '../services/citybikes.service';
 
 @Component({
   selector: 'app-home',
@@ -15,50 +16,24 @@ export class HomeComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private router: Router,
-    private jcDecauxService: JcDecauxService
+    private citybikesService: CitybikesService,
   ) {}
 
-  contracts: { countryCode: string, contracts: Contract[] }[] = []
-
-  countryName = {
-    'FR': 'France',
-    'SE': 'Suède',
-    'ES': 'Espagne',
-    'BE': 'Belgique',
-    'AU': 'Australie',
-    'IE': 'Ireland',
-    'RU': 'Russie',
-    'NO': 'Norvège',
-    'SI': 'Slovénie',
-    'LU': 'Luxembourg',
-    'JP': 'Japon',
-    'LT': 'Lithuanie'
-  }
+  networks: Network[]
 
   error: string
 
   ngOnInit() {
-    this.jcDecauxService.getContracts().then(
-      contracts => {
-        let grouped = _.groupBy(contracts, 'country_code')
-        for (let i in grouped) {
-          this.contracts.push({
-            countryCode: this.countryName[i] ? this.countryName[i] : i,
-            contracts: grouped[i]
-          })
-        }
-        this.contracts = _.sortBy(
-          //_.sortBy(this.contracts, ['country_code']).reverse(),
-          this.contracts,
-          (test) => test.contracts.length
-        ).reverse();
-      },
-      error => this.error = error.statusText
-    )
+    this.citybikesService.getNetworks().then(networks => this.networks = networks)
   }
 
-  onChange(name: string) {
-    this.router.navigate(['/' + name.toLowerCase()]);
+  filter: string = ""
+
+  filteredNetworks(max: number): Network[] {
+    if (!this.networks) return [];
+    return _.filter(this.networks, (network: Network) => {
+      return (network.name + ' ' + network.location.city).toLowerCase().includes(this.filter.toLowerCase());
+    }).slice(0, max);
   }
 
 }
