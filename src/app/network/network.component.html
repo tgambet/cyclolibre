@@ -1,7 +1,7 @@
 <section class="hero is-fullheight is-dark">
   <div class="hero-head">
-    <app-nav *ngIf="contract" [contractName]="contract.commercial_name" [contractCity]="contract.name"></app-nav>
-    <app-nav *ngIf="!contract"></app-nav>
+    <app-nav *ngIf="network" [networkName]="network.name" [networkCity]="network.location.city"></app-nav>
+    <app-nav *ngIf="!network"></app-nav>
   </div>
   <div class="hero-body has-text-centered">
 

@@ -89,7 +89,7 @@
           Vélos disponibles: <strong>{{s.free_bikes}}</strong><br>
           Emplacements disponibles: <strong>{{s.empty_slots}}</strong><br>
         </span>
-        <span *ngIf='s.extra && s.extra.status.toLowerCase() == "closed"' style="color: red;">
+        <span *ngIf='s.extra && s.extra.status && s.extra.status.toLowerCase() == "closed"' style="color: red;">
           <strong>FERMÉE</strong>
         </span>
       </div>

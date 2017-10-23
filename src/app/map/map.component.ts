@@ -114,7 +114,7 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   icon(s: Station) {
-    if (s.empty_slots == 0 && s.free_bikes == 0 || s.extra && s.extra['status'].toLowerCase() == "closed")
+    if (s.empty_slots == 0 && s.free_bikes == 0 || s.extra && s.extra['status'] && s.extra['status'].toLowerCase() == "closed")
       return 'assets/icon.svg';
     let stands = s.free_bikes + s.empty_slots;
     let percentage =
