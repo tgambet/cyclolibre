@@ -1,5 +1,5 @@
 import { NgModule }             from '@angular/core';
-import { BrowserModule }        from '@angular/platform-browser';
+import { BrowserModule, Title } from '@angular/platform-browser';
 import { FormsModule }          from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule }     from '@angular/common/http';
@@ -71,7 +71,8 @@ const appRoutes: Routes = [
   providers: [
     GoogleMapsAPIWrapper,
     CitybikesService,
-    NetworkResolverService
+    NetworkResolverService,
+    Title
   ],
   bootstrap: [AppComponent]
 })
