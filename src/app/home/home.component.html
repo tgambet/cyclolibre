@@ -12,7 +12,7 @@
       <h2 class="subtitle">
         Les vélos en libre service
       </h2>
-      <input *ngIf="networks" [(ngModel)]="filter" class="input is-dark filter" type="text" placeholder="Recherchez une ville ou un système VLS"/>
+      <input *ngIf="networks" [(ngModel)]="filter" class="input is-dark filter" type="text" autocorrect="off" autocapitalize="off" spellcheck="off" placeholder="Recherchez une ville ou un système VLS"/>
       <div *ngIf="networks && filter !=''" class="networks">
         <a *ngFor="let network of filteredNetworks(5); let i = index" class="network" [routerLink]="['/' + network.id]">
             {{network.location.city}}, {{network.name}}
