@@ -51,34 +51,28 @@ export class TableComponent implements OnInit, OnDestroy {
   intervalID: number;
 
   ngOnInit() {
+    
     this.route.parent.data.subscribe((data: { network: Network }) => {
       this.network = data.network
     });
 
-    // this.route.parent.params
-    //     .subscribe((params: Params) => {
-    //
-    //       let id = params['id'];
+    this.service
+        .getStations(this.network)
+        .then(stations => {
+          this.stations = stations;
+          this.updateDisplayedStations();
+        })
+        .catch(error => this.error = error.statusText);
 
-          this.service
-              .getStations(this.network)
-              .then(stations => {
-                this.stations = stations;
-                this.updateDisplayedStations();
-              })
-              .catch(error => this.error = error.statusText);
-
-          this.intervalID = window.setInterval(() => {
-            this.service
-                .getStations(this.network)
-                .then(stations => {
-                  this.stations = stations;
-                  this.updateDisplayedStations();
-                })
-                .catch(error => console.log(error));
-          }, this.autoUpdateInterval);
-
-        // });
+    this.intervalID = window.setInterval(() => {
+      this.service
+          .getStations(this.network)
+          .then(stations => {
+            this.stations = stations;
+            this.updateDisplayedStations();
+          })
+          .catch(error => console.log(error));
+    }, this.autoUpdateInterval);
 
   }
 

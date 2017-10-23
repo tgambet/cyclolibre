@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AgmInfoWindow } from '@agm/core';
 
+import { } from 'googlemaps';
+
 import { CitybikesService, Station, Network } from '../services/citybikes.service';
 
 import * as _ from 'lodash';
@@ -77,6 +79,10 @@ export class MapComponent implements OnInit, OnDestroy {
   intervalID: number;
 
   showInfo: boolean = false;
+
+  geoWatchId: number;
+
+  userPosition: { latitude: number, longitude: number }
 
   constructor(
     private service: CitybikesService,
@@ -189,10 +195,6 @@ export class MapComponent implements OnInit, OnDestroy {
     return this.geoWatchId && !this.userPosition;
   }
 
-  geoWatchId: number;
-
-  userPosition: { latitude: number, longitude: number }
-
   toggleGeoLocalization() {
     if ("geolocation" in navigator) {
       if (this.isGeolocalizing()) {
@@ -230,6 +232,11 @@ export class MapComponent implements OnInit, OnDestroy {
   onCenterChange(event) {
     this.lat = event.lat;
     this.lng = event.lng;
+  }
+
+  onMapReady(map: any) {
+    var bikeLayer = new google.maps.BicyclingLayer();
+    bikeLayer.setMap(map);
   }
 
 }
