@@ -109,7 +109,7 @@ export class MapComponent implements OnInit, OnDestroy {
           .getStations(this.network)
           .then(stations => {
             _.forEach(stations, (station) => {
-              let s = _.find(this.stations, { 'number': station.number })
+              let s = _.find(this.stations, { 'id': station.id })
               if (s) {
                 s.bike_stands = station.bike_stands;
                 s.available_bikes = station.available_bikes;
