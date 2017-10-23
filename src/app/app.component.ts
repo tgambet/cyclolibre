@@ -13,48 +13,12 @@ export class AppComponent implements OnInit {
 
   constructor() {}
 
-  ngOnInit(): void {
-    // this.mapsAPILoader.load().then(() => {
-    //   //console.log( google)
-    //   // var bikeLayer = new google.maps.BicyclingLayer();
-    //   // console.log(bikeLayer);
-    //   //this.wrapper.getNativeMap().then((map) => console.log(map))
-    //   console.log("loaded");
-    // });
-  }
+  ngOnInit(): void {}
 
   lat: number = 48.8566458;
   lng: number = 2.3479486;
   zoom: number = 12;
 
   typeLooked: string = "bike";
-
-  // getAvailableBikes() {
-  //   return _.reduce(this.stations, (a: number, b: station) => a + b.available_bikes, 0);
-  // }
-  //
-  // getAvailableBikeStands() {
-  //   return _.reduce(this.stations, (a: number, b: station) => a + b.available_bike_stands, 0);
-  // }
-  //
-  // clickedStation(stationNumber: string, index: number) {
-  //   console.log(`clicked the marker: ${stationNumber || index}`)
-  // }
-  //
-  // icon(s: station) {
-  //   if (s.status == "CLOSED")
-  //     return 'assets/icon.svg';
-  //   let percentage =
-  //     this.typeLooked == "bike" ? s.available_bikes / s.bike_stands : s.available_bike_stands / s.bike_stands;
-  //   if (percentage > 0.75)
-  //     return 'assets/icon-4.svg';
-  //   if (percentage > 0.50)
-  //     return 'assets/icon-3.svg';
-  //   if (percentage > 0.25)
-  //     return 'assets/icon-2.svg';
-  //   if (percentage > 0)
-  //     return 'assets/icon-1.svg';
-  //   return 'assets/icon-0.svg';
-  // }
 
 }

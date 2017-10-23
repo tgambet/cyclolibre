@@ -1,6 +1,8 @@
 import { Directive } from '@angular/core';
 import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 
+import { } from 'googlemaps';
+
 @Directive({
   selector: '[appMapExtension]'
 })

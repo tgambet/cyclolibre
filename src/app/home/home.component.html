@@ -12,17 +12,13 @@
       <h2 class="subtitle">
         Les vélos en libre service
       </h2>
-      <div class="select is-dark" *ngIf="contracts.length > 0">
-        <select (change)="onChange($event.target.value)">
-          <option disabled>Choisissez une ville</option>
-          <optgroup *ngFor="let group of contracts" [label]="group.countryCode">
-            <option *ngFor="let contract of group.contracts" [value]="contract.name">
-              {{contract.name}} ({{contract.commercial_name}})
-            </option>
-          </optgroup>
-        </select>
+      <input *ngIf="networks" [(ngModel)]="filter" class="input is-dark filter" type="text" placeholder="Recherchez une ville ou un système VLS"/>
+      <div *ngIf="networks && filter !=''" class="networks">
+        <a *ngFor="let network of filteredNetworks(5); let i = index" class="network" [routerLink]="['/' + network.id]">
+            {{network.location.city}}, {{network.name}}
+        </a>
       </div>
-      <div *ngIf="contracts.length == 0 && !error">
+      <div *ngIf="!networks && !error">
         <span class="icon">
           <i class="fa fa-circle-o-notch fa-spin"></i>
         </span>
@@ -34,15 +30,4 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="hero-foot">
-    <nav class="tabs is-boxed">
-      <div class="container">
-        <ul>
-          <li class="is-active"><a>Carte</a></li>
-          <li><a>Tableau</a></li>
-        </ul>
-      </div>
-    </nav>
-  </div> -->
 </section>

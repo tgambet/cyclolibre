@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AgmInfoWindow } from '@agm/core';
 
-import { JcDecauxService, Station, Contract } from '../services/jc-decaux.service';
+import { CitybikesService, Station, Network } from '../services/citybikes.service';
 
 import * as _ from 'lodash';
 
@@ -21,7 +21,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   stations: Station[];
 
-  contract: Contract;
+  network: Network;
 
   error: string;
 
@@ -32,26 +32,31 @@ export class MapComponent implements OnInit, OnDestroy {
   showInfo: boolean = false;
 
   constructor(
-    private jcDecauxService: JcDecauxService,
+    private service: CitybikesService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.route.parent.params
-        .subscribe((params: Params) => {
 
-          let id = params['id'];
+    this.route.parent.data.subscribe((data: { network: Network }) => {
+      this.network = data.network
+    });
 
-          this.jcDecauxService
-              .getContract(id)
-              .then((contract: Contract) => {
-                this.contract = contract
-              })
-              .catch(error => this.error = error.statusText);
+    // this.route.parent.params
+    //     .subscribe((params: Params) => {
+    //
+    //       let id = params['id'];
+    //
+    //       this.service
+    //           .getNetwork(id)
+    //           .then((network: Network) => {
+    //             this.network = network
+    //           })
+    //           .catch(error => this.error = error.statusText);
 
-          this.jcDecauxService
-              .getStations(id)
+          this.service
+              .getStations(this.network)
               .then(stations => {
                 this.centerMap(stations)
                 this.stations = stations
@@ -59,8 +64,8 @@ export class MapComponent implements OnInit, OnDestroy {
               .catch(error => this.error = error.statusText);
 
           this.intervalID = window.setInterval(() => {
-            this.jcDecauxService
-                .getStations(id)
+            this.service
+                .getStations(this.network)
                 .then(stations => {
                   _.forEach(stations, (station) => {
                     let s = _.find(this.stations, { 'number': station.number })
@@ -78,7 +83,7 @@ export class MapComponent implements OnInit, OnDestroy {
                 })
                 .catch(error => console.log(error));
           }, this.autoUpdateInterval);
-        });
+        //});
   }
 
   ngOnDestroy() {
@@ -90,8 +95,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   centerMap(stations: Station[]) {
       // define lat and lng
-      let lats = _.map(stations, (station: Station) => station.position.lat);
-      let lngs = _.map(stations, (station: Station) => station.position.lng);
+      let lats = _.map(stations, (station: Station) => station.latitude);
+      let lngs = _.map(stations, (station: Station) => station.longitude);
       this.lat = _.max(lats) - (_.max(lats) - _.min(lats)) / 2;
       this.lng = _.max(lngs) - (_.max(lngs) - _.min(lngs)) / 2;
       // define the zoom
@@ -109,10 +114,11 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   icon(s: Station) {
-    if (s.status == "CLOSED")
+    if (s.empty_slots == 0 && s.free_bikes == 0 || s.extra && s.extra['status'] && s.extra['status'].toLowerCase() == "closed")
       return 'assets/icon.svg';
+    let stands = s.free_bikes + s.empty_slots;
     let percentage =
-      this.typeLooked == "bike" ? s.available_bikes / s.bike_stands : s.available_bike_stands / s.bike_stands;
+      this.typeLooked == "bike" ? s.free_bikes / stands : s.empty_slots / stands;
     if (percentage >= 0.75)
       return 'assets/icon-4.svg';
     if (percentage >= 0.50)
@@ -125,15 +131,15 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   getAvailableBikes() {
-    return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bikes, 0);
+    return _.reduce(this.stations, (a: number, b: Station) => a + b.free_bikes, 0);
   }
 
   getTotalStands() {
-    return _.reduce(this.stations, (a: number, b: Station) => a + b.bike_stands, 0);
+    return _.reduce(this.stations, (a: number, b: Station) => a + b.free_bikes + b.empty_slots, 0);
   }
 
   getAvailableBikeStands() {
-    return _.reduce(this.stations, (a: number, b: Station) => a + b.available_bike_stands, 0);
+    return _.reduce(this.stations, (a: number, b: Station) => a + b.empty_slots, 0);
   }
 
   isNotGeolocalized() {

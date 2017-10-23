@@ -7,7 +7,7 @@
 <div class="overlay map-error" *ngIf="error" style="color: red; font-weight: bold">
   {{error}}
 </div>
-<div class="overlay" *ngIf="showInfo && contract && stations" (click)="showInfo = false">
+<div class="overlay" *ngIf="showInfo && network && stations" (click)="showInfo = false">
   <div class="legend" *ngIf="true" (click)="$event.stopPropagation()">
     <a class="delete" (click)="showInfo = false">
       <span class="icon">
@@ -16,7 +16,7 @@
     </a>
     <h2>Informations</h2>
     <p>
-      <b>{{contract.commercial_name}}</b> comprend <b>{{stations.length}}</b> stations pour un total de <b>{{getTotalStands()}}</b> emplacements.
+      <b>{{network.name}}</b> comprend <b>{{stations.length}}</b> stations pour un total de <b>{{getTotalStands()}}</b> emplacements.
       Il y a actuellement <b>{{getAvailableBikes()}}</b> vélos disponibles pour <b>{{getAvailableBikeStands()}}</b> emplacements libres.
     </p>
     <p></p>
@@ -76,19 +76,20 @@
     appMapExtension>
   <agm-marker
       *ngFor="let s of stations; let i = index"
-      (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedStation(s.number, i)"
-      [latitude]="s.position.lat"
-      [longitude]="s.position.lng"
+      (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedStation(s, i)"
+      [latitude]="s.latitude"
+      [longitude]="s.longitude"
       [iconUrl]="icon(s)">
     <agm-info-window #infoWindow>
       <div style="text-align: left; color: black;">
-        <strong>Station n°{{s.number}}</strong><br>
-        {{s.address}}<br>
-        <span *ngIf='s.status == "OPEN"'>
-          Vélos disponibles: <strong>{{s.available_bikes}}</strong><br>
-          Emplacements disponibles: <strong>{{s.available_bike_stands}}</strong><br>
+        <!-- <strong>Station n°{{s.number}}</strong><br> -->
+        <strong>{{s.name}}</strong><br>
+        <span *ngIf="s.extra && s.extra.address">{{s.extra.address}}<br></span>
+        <span>
+          Vélos disponibles: <strong>{{s.free_bikes}}</strong><br>
+          Emplacements disponibles: <strong>{{s.empty_slots}}</strong><br>
         </span>
-        <span *ngIf='s.status == "CLOSED"' style="color: red;">
+        <span *ngIf='s.extra && s.extra.status && s.extra.status.toLowerCase() == "closed"' style="color: red;">
           <strong>FERMÉE</strong>
         </span>
       </div>

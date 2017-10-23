@@ -10,10 +10,10 @@ export class NavComponent implements OnInit {
   isOpen: boolean = false;
 
   @Input()
-  contractName: string
+  networkName: string
 
   @Input()
-  contractCity: string
+  networkCity: string
 
   constructor(elementRef: ElementRef, renderer: Renderer) {
 
