@@ -22,3 +22,8 @@ $fa-font-path: "../node_modules/font-awesome/fonts" !default;
 app-table {
   width: 100%;
 }
+
+// Fix for titles of info windows in gmap
+.poi-info-window .title {
+  color: black !important;
+}

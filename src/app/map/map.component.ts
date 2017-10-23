@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AgmInfoWindow } from '@agm/core';
 
+import { } from 'googlemaps';
+
 import { CitybikesService, Station, Network } from '../services/citybikes.service';
 
 import * as _ from 'lodash';
@@ -17,6 +19,53 @@ export class MapComponent implements OnInit, OnDestroy {
   lng: number = 1.6273467;
   zoom: number = 6;
 
+  mapStyles = [
+    {
+      "featureType": "administrative.land_parcel",
+      "elementType": "labels",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi",
+      "elementType": "labels.text",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.business",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "poi.park",
+      "elementType": "labels.text",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    },
+    {
+      "featureType": "road.local",
+      "elementType": "labels",
+      "stylers": [
+        {
+          "visibility": "off"
+        }
+      ]
+    }
+  ]
+
   typeLooked: string = "bike"; // or "stand"
 
   stations: Station[];
@@ -31,6 +80,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
   showInfo: boolean = false;
 
+  geoWatchId: number;
+
+  userPosition: { latitude: number, longitude: number }
+
   constructor(
     private service: CitybikesService,
     private router: Router,
@@ -43,47 +96,35 @@ export class MapComponent implements OnInit, OnDestroy {
       this.network = data.network
     });
 
-    // this.route.parent.params
-    //     .subscribe((params: Params) => {
-    //
-    //       let id = params['id'];
-    //
-    //       this.service
-    //           .getNetwork(id)
-    //           .then((network: Network) => {
-    //             this.network = network
-    //           })
-    //           .catch(error => this.error = error.statusText);
+    this.service
+        .getStations(this.network)
+        .then(stations => {
+          this.centerMap(stations)
+          this.stations = stations
+        })
+        .catch(error => this.error = error.statusText);
 
-          this.service
-              .getStations(this.network)
-              .then(stations => {
-                this.centerMap(stations)
-                this.stations = stations
-              })
-              .catch(error => this.error = error.statusText);
+    this.intervalID = window.setInterval(() => {
+      this.service
+          .getStations(this.network)
+          .then(stations => {
+            _.forEach(stations, (station) => {
+              let s = _.find(this.stations, { 'number': station.number })
+              if (s) {
+                s.bike_stands = station.bike_stands;
+                s.available_bikes = station.available_bikes;
+                s.available_bike_stands = station.available_bike_stands;
+                s.position = station.position;
+                s.status = station.status;
+                s.lastUpdate = station.lastUpdate;
+              } else {
+                this.stations.push(station);
+              }
+            });
+          })
+          .catch(error => console.log(error));
+    }, this.autoUpdateInterval);
 
-          this.intervalID = window.setInterval(() => {
-            this.service
-                .getStations(this.network)
-                .then(stations => {
-                  _.forEach(stations, (station) => {
-                    let s = _.find(this.stations, { 'number': station.number })
-                    if (s) {
-                      s.bike_stands = station.bike_stands;
-                      s.available_bikes = station.available_bikes;
-                      s.available_bike_stands = station.available_bike_stands;
-                      s.position = station.position;
-                      s.status = station.status;
-                      s.lastUpdate = station.lastUpdate;
-                    } else {
-                      this.stations.push(station);
-                    }
-                  });
-                })
-                .catch(error => console.log(error));
-          }, this.autoUpdateInterval);
-        //});
   }
 
   ngOnDestroy() {
@@ -154,10 +195,6 @@ export class MapComponent implements OnInit, OnDestroy {
     return this.geoWatchId && !this.userPosition;
   }
 
-  geoWatchId: number;
-
-  userPosition: { latitude: number, longitude: number }
-
   toggleGeoLocalization() {
     if ("geolocation" in navigator) {
       if (this.isGeolocalizing()) {
@@ -195,6 +232,11 @@ export class MapComponent implements OnInit, OnDestroy {
   onCenterChange(event) {
     this.lat = event.lat;
     this.lng = event.lng;
+  }
+
+  onMapReady(map: any) {
+    var bikeLayer = new google.maps.BicyclingLayer();
+    bikeLayer.setMap(map);
   }
 
 }

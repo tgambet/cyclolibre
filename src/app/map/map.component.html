@@ -72,8 +72,9 @@
     [zoom]="zoom"
     [fullscreenControl]=true
     [streetViewControl]=false
+    [styles]="mapStyles"
     (centerChange)="onCenterChange($event)"
-    appMapExtension>
+    (mapReady)="onMapReady($event)">
   <agm-marker
       *ngFor="let s of stations; let i = index"
       (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedStation(s, i)"

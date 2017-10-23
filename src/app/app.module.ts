@@ -7,7 +7,6 @@ import { HttpClientModule }     from '@angular/common/http';
 import { AgmCoreModule, GoogleMapsAPIWrapper } from '@agm/core';
 
 import { AppComponent } from './app.component';
-import { MapExtensionDirective } from './map/map-extension.directive';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
@@ -48,7 +47,6 @@ const appRoutes: Routes = [
 @NgModule({
   declarations: [
     AppComponent,
-    MapExtensionDirective,
     PageNotFoundComponent,
     AboutComponent,
     HomeComponent,
