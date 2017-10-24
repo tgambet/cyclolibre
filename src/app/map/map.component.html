@@ -39,11 +39,19 @@
 
 
 <div class="location-input field">
-  <input placeholder="Recherchez une adresse" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input is-dark" #search>
+  <p class="control has-icons-right">
+    <input placeholder="Recherchez une adresse" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input is-dark" #search>
+    <a class="icon is-right" *ngIf="search.value != ''" (click)="search.value = ''; searchPosition = null">
+      <i class="fa fa-remove"></i>
+    </a>
+    <a class="icon is-right" *ngIf="search.value == ''">
+      <i class="fa fa-search"></i>
+    </a>
+  </p>
 </div>
 
 <div class="controls">
-  
+
   <div class="field has-addons" *ngIf="stations">
     <p class="control">
       <a class="button bike" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'" title="Afficher les vélos disponibles">

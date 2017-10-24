@@ -42,6 +42,10 @@ agm-map, .overlay {
   width: calc(100% - 1rem);
   max-width: 30rem;
 }
+.location-input .icon {
+  pointer-events: auto;
+  color: #999;
+}
 
 .controls {
   position: absolute;
