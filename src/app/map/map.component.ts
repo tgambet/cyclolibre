@@ -203,6 +203,11 @@ export class MapComponent implements OnInit, OnDestroy {
     return 'assets/icon-0.svg';
   }
 
+  isClosed(station: Station) {
+    return station.extra && station.extra['status'] && station.extra['status'].toLowerCase() == "closed"
+      || station.free_bikes == 0 && station.empty_slots == 0
+  }
+
   getAvailableBikes() {
     return _.reduce(this.stations, (a: number, b: Station) => a + b.free_bikes, 0);
   }

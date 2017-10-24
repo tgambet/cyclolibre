@@ -33,20 +33,22 @@ agm-map, .overlay {
   font-style: italic;
 }
 
-.mapButtons, .mapButtons2 {
+.controls {
   position: absolute;
   z-index: 5;
-  top: 3.3rem;
+  top: 0.5rem;
   left: 0.5rem;
   margin: 0;
+  width: calc(100% - 1rem);
+  text-align: left;
 }
-.mapButtons2 {
-  top: 6rem;
-  left: 0.5rem;
-}
-.mapButtons2 p {
+.controls .field {
   margin-bottom: 0.5rem;
 }
+.location-input {
+  max-width: 30rem;
+}
+
 .button.location {
   padding-left: 4px;
   padding-right: 4px;
@@ -59,7 +61,7 @@ agm-map, .overlay {
   vertical-align: middle;
 }
 .parking {
-  
+
 }
 
 hr {
@@ -91,13 +93,4 @@ hr {
   position: absolute;
   right: 0.2rem;
   top: 0.2rem;
-}
-
-.location-input {
-  position: absolute;
-  top: 0.5rem;
-  left: 0.5rem;
-  z-index: 5;
-  width: calc(100% - 1rem);
-  max-width: 30rem;
 }

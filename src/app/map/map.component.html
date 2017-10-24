@@ -1,4 +1,4 @@
-<div class="overlay" *ngIf="!stations && !error">
+<div class="overlay loading" *ngIf="!stations && !error">
   <span class="icon">
     <i class="fa fa-circle-o-notch fa-spin"></i>
   </span>
@@ -7,7 +7,7 @@
 <div class="overlay map-error" *ngIf="error" style="color: red; font-weight: bold">
   {{error}}
 </div>
-<div class="overlay" *ngIf="showInfo && network && stations" (click)="showInfo = false">
+<div class="overlay information" *ngIf="showInfo && network && stations" (click)="showInfo = false">
   <div class="legend" *ngIf="true" (click)="$event.stopPropagation()">
     <a class="delete" (click)="showInfo = false">
       <span class="icon">
@@ -36,38 +36,45 @@
   </div>
 </div>
 
-<div class="location-input">
-  <input placeholder="Recherchez une adresse" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input is-dark" #search>
-</div>
+<div class="controls">
 
-<div class="field has-addons mapButtons" *ngIf="stations">
-  <p class="control">
-    <a class="button bike" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'" title="Afficher les vélos disponibles">
-      <img *ngIf="typeLooked == 'bike'" src="assets/bike-white.svg" height="26" width="26" />
-      <img *ngIf="typeLooked != 'bike'" src="assets/bike.svg" height="26" width="26" />
-    </a>
-  </p>
-  <p class="control">
-    <a class="button parking" (click)="typeLooked = 'stand'" [class.is-dark]="typeLooked == 'stand'" title="Affichers les emplacements disponibles">
-      <b>P</b>
-    </a>
-  </p>
-</div>
+  <div class="location-input field">
+    <input placeholder="Recherchez une adresse" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input is-dark" #search>
+  </div>
 
-<div class="field mapButtons2" *ngIf="stations">
-  <p>
-    <a class="button" (click)="showInfo = true" [class.is-dark]="showInfo" title="Informations et légende">
-      <span class="icon">
-        <i class="fa fa-info"></i>
-      </span>
-    </a>
-  </p>
-  <p>
-    <a class="button location" (click)="toggleGeoLocalization()" [class.is-loading]="isGeolocalizing()" [class.is-dark]="isGeolocalized()" >
-      <img src="assets/location.svg" height="26" width="26" *ngIf="isGeolocalized()">
-      <img src="assets/location-not-fixed.svg" height="26" width="26" *ngIf="isNotGeolocalized()">
-    </a>
-  </p>
+  <div class="field has-addons" *ngIf="stations">
+    <p class="control">
+      <a class="button bike" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'" title="Afficher les vélos disponibles">
+        <img *ngIf="typeLooked == 'bike'" src="assets/bike-white.svg" height="26" width="26" />
+        <img *ngIf="typeLooked != 'bike'" src="assets/bike.svg" height="26" width="26" />
+      </a>
+    </p>
+    <p class="control">
+      <a class="button parking" (click)="typeLooked = 'stand'" [class.is-dark]="typeLooked == 'stand'" title="Affichers les emplacements disponibles">
+        <b>P</b>
+      </a>
+    </p>
+  </div>
+
+  <div class="field" *ngIf="stations">
+    <p>
+      <a class="button" (click)="showInfo = true" [class.is-dark]="showInfo" title="Informations et légende">
+        <span class="icon">
+          <i class="fa fa-info"></i>
+        </span>
+      </a>
+    </p>
+  </div>
+  
+  <div class="field" *ngIf="stations">
+    <p>
+      <a class="button location" (click)="toggleGeoLocalization()" [class.is-loading]="isGeolocalizing()" [class.is-dark]="isGeolocalized()" >
+        <img src="assets/location.svg" height="26" width="26" *ngIf="isGeolocalized()">
+        <img src="assets/location-not-fixed.svg" height="26" width="26" *ngIf="isNotGeolocalized()">
+      </a>
+    </p>
+  </div>
+
 </div>
 
 <agm-map
@@ -92,11 +99,11 @@
         <!-- <strong>Station n°{{s.number}}</strong><br> -->
         <strong>{{s.name}}</strong><br>
         <span *ngIf="s.extra && s.extra.address">{{s.extra.address}}<br></span>
-        <span>
+        <span *ngIf="!isClosed(s)">
           Vélos disponibles: <strong>{{s.free_bikes}}</strong><br>
           Emplacements disponibles: <strong>{{s.empty_slots}}</strong><br>
         </span>
-        <span *ngIf='s.extra && s.extra.status && s.extra.status.toLowerCase() == "closed"' style="color: red;">
+        <span *ngIf="isClosed(s)" style="color: red;">
           <strong>FERMÉE</strong>
         </span>
       </div>
