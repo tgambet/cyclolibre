@@ -33,20 +33,26 @@ agm-map, .overlay {
   font-style: italic;
 }
 
-.controls {
+.location-input {
   position: absolute;
   z-index: 5;
   top: 0.5rem;
   left: 0.5rem;
   margin: 0;
   width: calc(100% - 1rem);
+  max-width: 30rem;
+}
+
+.controls {
+  position: absolute;
+  z-index: 5;
+  top: 3.3rem;
+  left: 0.5rem;
+  margin: 0;
   text-align: left;
 }
 .controls .field {
   margin-bottom: 0.5rem;
-}
-.location-input {
-  max-width: 30rem;
 }
 
 .button.location {

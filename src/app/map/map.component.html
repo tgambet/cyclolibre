@@ -36,12 +36,14 @@
   </div>
 </div>
 
+
+
+<div class="location-input field">
+  <input placeholder="Recherchez une adresse" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input is-dark" #search>
+</div>
+
 <div class="controls">
-
-  <div class="location-input field">
-    <input placeholder="Recherchez une adresse" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input is-dark" #search>
-  </div>
-
+  
   <div class="field has-addons" *ngIf="stations">
     <p class="control">
       <a class="button bike" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'" title="Afficher les vélos disponibles">
@@ -65,7 +67,7 @@
       </a>
     </p>
   </div>
-  
+
   <div class="field" *ngIf="stations">
     <p>
       <a class="button location" (click)="toggleGeoLocalization()" [class.is-loading]="isGeolocalizing()" [class.is-dark]="isGeolocalized()" >
