@@ -27,3 +27,7 @@ app-table {
 .poi-info-window .title {
   color: black !important;
 }
+
+::placeholder {
+  color: #999 !important;
+}
