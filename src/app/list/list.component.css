@@ -1,0 +1,47 @@
+.icon {
+  pointer-events: auto !important;
+  color: #999 !important;
+}
+
+.filter {
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+}
+
+.stations {
+  margin-top: 3.3rem;
+  text-align: left;
+}
+
+.station {
+  border-top: 1px solid grey;
+  padding: 0.5rem 0;
+}
+
+.station {
+  font-size: 85%;
+}
+
+.favorite {
+  float: right;
+}
+.address {
+  font-size: 75%;
+}
+.metadata img {
+  vertical-align: bottom;
+}
+
+.info {
+  display: inline-block;
+  width: 1rem;
+}
+.free-bikes {
+  margin-right: 0.5rem;
+}
+.closed {
+  color: red;
+  //font-weight: bold;
+}

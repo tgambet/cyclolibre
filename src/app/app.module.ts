@@ -19,6 +19,7 @@ import { NetworkResolverService } from './network/network-resolver.service';
 import { TableComponent } from './table/table.component';
 
 import { environment } from '../environments/environment';
+import { ListComponent } from './list/list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -37,6 +38,10 @@ const appRoutes: Routes = [
       {
         path: 'table',
         component: TableComponent,
+      },
+      {
+        path: 'list',
+        component: ListComponent,
       }
     ]
   },
@@ -54,6 +59,7 @@ const appRoutes: Routes = [
     MapComponent,
     NetworkComponent,
     TableComponent,
+    ListComponent,
   ],
   imports: [
     BrowserModule,

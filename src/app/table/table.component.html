@@ -14,14 +14,13 @@
 
 <div class="container filter" *ngIf="stations">
   <p class="control has-icons-right">
-      <span class="filter">
-        <input type="text" class="input is-dark" placeholder="Rechercher une station" [(ngModel)]="stationFilter" (keyup)="changePage(1); updateDisplayedStations()"/>
-        <a class="icon is-right" *ngIf="stationFilter != ''" (click)="stationFilter = ''; updateDisplayedStations()">
-          <i class="fa fa-remove"></i>
-        </a>
-      </span>
+    <span class="filter">
+      <input type="text" class="input is-dark" placeholder="Rechercher une station" [(ngModel)]="stationFilter" (keyup)="changePage(1); updateDisplayedStations()"/>
+      <a class="icon is-right" *ngIf="stationFilter != ''" (click)="stationFilter = ''; updateDisplayedStations()">
+        <i class="fa fa-remove"></i>
+      </a>
+    </span>
   </p>
-
 </div>
 
 <div class="container stations" *ngIf="stations">
