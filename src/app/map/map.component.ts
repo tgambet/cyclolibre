@@ -1,6 +1,7 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, NgZone } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { AgmInfoWindow } from '@agm/core';
+import { AgmInfoWindow, MapsAPILoader } from '@agm/core';
+import { LatLngBounds, LatLngBoundsLiteral } from '@agm/core/services/google-maps-types';
 
 import { } from 'googlemaps';
 
@@ -15,9 +16,19 @@ import * as _ from 'lodash';
 })
 export class MapComponent implements OnInit, OnDestroy {
 
-  lat: number = 46.7131494;
-  lng: number = 1.6273467;
-  zoom: number = 6;
+  @ViewChild("search")
+  public searchElementRef: ElementRef;
+
+  lat: number;
+  lng: number;
+  zoom: number;
+
+  mapBounds: LatLngBounds | LatLngBoundsLiteral = {
+    east: 90,
+    west: -90,
+    south: -45,
+    north: 45
+  }
 
   mapStyles = [
     {
@@ -54,15 +65,6 @@ export class MapComponent implements OnInit, OnDestroy {
           "visibility": "off"
         }
       ]
-    },
-    {
-      "featureType": "road.local",
-      "elementType": "labels",
-      "stylers": [
-        {
-          "visibility": "off"
-        }
-      ]
     }
   ]
 
@@ -84,10 +86,14 @@ export class MapComponent implements OnInit, OnDestroy {
 
   userPosition: { latitude: number, longitude: number }
 
+  searchPosition: { latitude: number, longitude: number }
+
   constructor(
     private service: CitybikesService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
   ) { }
 
   ngOnInit() {
@@ -99,8 +105,8 @@ export class MapComponent implements OnInit, OnDestroy {
     this.service
         .getStations(this.network)
         .then(stations => {
-          this.centerMap(stations)
-          this.stations = stations
+          this.loadMap(stations);
+          this.stations = stations;
         })
         .catch(error => this.error = error.statusText);
 
@@ -127,6 +133,37 @@ export class MapComponent implements OnInit, OnDestroy {
 
   }
 
+  // https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete?hl=fr
+  // https://brianflove.com/2016/10/18/angular-2-google-maps-places-autocomplete/
+  loadMap(stations: Station[]) {
+    this.mapsAPILoader.load().then(() => {
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      this.mapBounds = this.getBounds(stations);
+      autocomplete.setBounds(this.mapBounds);
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+          if (!place.geometry) {
+            return;
+          }
+          if (place.geometry.viewport) {
+            this.mapBounds = place.geometry.viewport as any
+          } else {
+            this.lat = place.geometry.location.lat();
+            this.lng = place.geometry.location.lng();
+            this.zoom = 17;
+          }
+          this.searchPosition = {
+            latitude: place.geometry.location.lat(),
+            longitude: place.geometry.location.lng()
+          }
+        });
+      });
+    });
+  }
+
   ngOnDestroy() {
     if (this.intervalID)
       clearInterval(this.intervalID);
@@ -134,20 +171,15 @@ export class MapComponent implements OnInit, OnDestroy {
       navigator.geolocation.clearWatch(this.geoWatchId);
   }
 
-  centerMap(stations: Station[]) {
-      // define lat and lng
-      let lats = _.map(stations, (station: Station) => station.latitude);
-      let lngs = _.map(stations, (station: Station) => station.longitude);
-      this.lat = _.max(lats) - (_.max(lats) - _.min(lats)) / 2;
-      this.lng = _.max(lngs) - (_.max(lngs) - _.min(lngs)) / 2;
-      // define the zoom
-      let latSpread = _.max(lats) - _.min(lats)
-      let lngSpread = _.max(lngs) - _.min(lngs)
-      if (latSpread < 0.025 && lngSpread < 0.03)
-        return this.zoom = 15;
-      if (latSpread < 0.035 && lngSpread < 0.06)
-        return this.zoom = 14;
-      return this.zoom = 13;
+  getBounds(stations: Station[]) {
+    let lats = _.map(stations, (station: Station) => station.latitude);
+    let lngs = _.map(stations, (station: Station) => station.longitude);
+    return {
+      north: _.max(lats),
+      south: _.min(lats),
+      west: _.min(lngs),
+      east: _.max(lngs)
+    }
   }
 
   clickedStation(stationNumber: string, index: number) {
@@ -225,13 +257,18 @@ export class MapComponent implements OnInit, OnDestroy {
         );
       }
     } else {
+      console.log("TODO - not available")
       /* geolocation IS NOT available */
     }
   }
 
-  onCenterChange(event) {
-    this.lat = event.lat;
-    this.lng = event.lng;
+  onCenterChange(center) {
+    this.lat = center.lat;
+    this.lng = center.lng;
+  }
+
+  onZoomChange(zoom) {
+    this.zoom = zoom;
   }
 
   onMapReady(map: any) {
