@@ -63,10 +63,11 @@ export class ListComponent implements OnInit, OnDestroy {
     function filterBase(station: Station) {
       return (station.name).toLowerCase();
     }
-    return _.filter(
+    let filtered = _.filter(
       this.stations,
       (station: Station) => filterBase(station).includes(this.stationFilter.toLowerCase())
     )
+    return _.sortBy(filtered, (station) => station.name)
   }
 
   isClosed(station: Station) {
