@@ -1,6 +1,6 @@
 <section class="hero is-fullheight is-dark">
   <div class="hero-head">
-    <app-nav *ngIf="network" [networkName]="network.name" [networkCity]="network.location.city"></app-nav>
+    <app-nav *ngIf="network" [network]="network"></app-nav>
     <app-nav *ngIf="!network"></app-nav>
   </div>
   <div class="hero-body has-text-centered">

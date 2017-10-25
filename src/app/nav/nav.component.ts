@@ -1,5 +1,7 @@
 import { Component, OnInit, ElementRef, Renderer, Input } from '@angular/core';
 
+import { Network } from '../services/citybikes.service';
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -10,10 +12,7 @@ export class NavComponent implements OnInit {
   isOpen: boolean = false;
 
   @Input()
-  networkName: string
-
-  @Input()
-  networkCity: string
+  network: any
 
   constructor(elementRef: ElementRef, renderer: Renderer) {
 

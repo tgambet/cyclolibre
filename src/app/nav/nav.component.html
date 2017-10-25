@@ -5,8 +5,8 @@
           <img src="assets/biker.svg" width="28" style="margin-right: 0.5rem"/>
           <span>CycloLibre</span>
       </a>
-      <a class="navbar-item is-active" *ngIf="networkCity && networkName" [routerLink]="'/' + networkCity.toLowerCase()">
-        {{networkCity}} ({{networkName}})
+      <a class="navbar-item is-active" *ngIf="network" [routerLink]="'/' + network.id">
+        {{network.location.city}} ({{network.name}})
       </a>
       <div class="navbar-burger burger" [class.is-active]="isOpen" (click)="isOpen = !isOpen">
         <span></span>
