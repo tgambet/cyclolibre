@@ -88,6 +88,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   searchPosition: { latitude: number, longitude: number }
 
+  lastUpdate: number
+
   constructor(
     private service: CitybikesService,
     private router: Router,
@@ -114,21 +116,23 @@ export class MapComponent implements OnInit, OnDestroy {
       this.service
           .getStations(this.network)
           .then(stations => {
-            _.forEach(stations, (station) => {
-              let s = _.find(this.stations, { 'id': station.id })
+            _.forEach(stations, (station: Station) => {
+              let s: Station = _.find(this.stations, { 'id': station.id })
               if (s) {
-                s.bike_stands = station.bike_stands;
-                s.available_bikes = station.available_bikes;
-                s.available_bike_stands = station.available_bike_stands;
-                s.position = station.position;
-                s.status = station.status;
-                s.lastUpdate = station.lastUpdate;
+                s.free_bikes = station.free_bikes;
+                s.empty_slots = station.empty_slots;
+                s.extra = station.extra;
+                s.timestamp = station.timestamp;
+                s.latitude = station.latitude;
+                s.longitude = station.longitude;
               } else {
                 this.stations.push(station);
               }
+              this.lastUpdate = Date.now();
             });
           })
           .catch(error => console.log(error));
+
     }, this.autoUpdateInterval);
 
   }
@@ -143,7 +147,7 @@ export class MapComponent implements OnInit, OnDestroy {
       this.mapBounds = this.getBounds(stations);
       autocomplete.setBounds(this.mapBounds);
       autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
+        //this.ngZone.run(() => {
           let place: google.maps.places.PlaceResult = autocomplete.getPlace();
           if (!place.geometry) {
             return;
@@ -159,7 +163,7 @@ export class MapComponent implements OnInit, OnDestroy {
             latitude: place.geometry.location.lat(),
             longitude: place.geometry.location.lng()
           }
-        });
+        //});
       });
     });
   }
@@ -279,6 +283,11 @@ export class MapComponent implements OnInit, OnDestroy {
   onMapReady(map: any) {
     var bikeLayer = new google.maps.BicyclingLayer();
     bikeLayer.setMap(map);
+  }
+
+  getLastUpdated() {
+    let timestamps = _.map(this.stations, (station) => station.timestamp)
+    return _.max(timestamps);
   }
 
 }
