@@ -16,7 +16,6 @@ import { MapComponent } from './map/map.component';
 import { CitybikesService } from './services/citybikes.service';
 import { NetworkComponent } from './network/network.component';
 import { NetworkResolverService } from './network/network-resolver.service';
-import { TableComponent } from './table/table.component';
 
 import { environment } from '../environments/environment';
 import { ListComponent } from './list/list.component';
@@ -34,10 +33,6 @@ const appRoutes: Routes = [
       {
         path: '',
         component: MapComponent,
-      },
-      {
-        path: 'table',
-        component: TableComponent,
       },
       {
         path: 'list',
@@ -58,7 +53,6 @@ const appRoutes: Routes = [
     NavComponent,
     MapComponent,
     NetworkComponent,
-    TableComponent,
     ListComponent,
   ],
   imports: [
