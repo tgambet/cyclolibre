@@ -30,6 +30,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   intervalID: number;
 
+  showNumber: number = 10;
+
   ngOnInit() {
     this.route.parent.data.subscribe((data: { network: Network }) => {
       this.network = data.network
@@ -39,7 +41,6 @@ export class ListComponent implements OnInit, OnDestroy {
         .getStations(this.network)
         .then(stations => {
           this.stations = stations;
-          //this.updateDisplayedStations();
         })
         .catch(error => this.error = error.statusText);
 
@@ -48,7 +49,6 @@ export class ListComponent implements OnInit, OnDestroy {
           .getStations(this.network)
           .then(stations => {
             this.stations = stations;
-            //this.updateDisplayedStations();
           })
           .catch(error => console.log(error));
     }, this.autoUpdateInterval);
@@ -67,12 +67,17 @@ export class ListComponent implements OnInit, OnDestroy {
       this.stations,
       (station: Station) => filterBase(station).includes(this.stationFilter.toLowerCase())
     )
-    return _.sortBy(filtered, (station) => station.name)
+    let sorted = _.sortBy(filtered, (station) => station.name)
+    return sorted.slice(0, this.showNumber);
   }
 
   isClosed(station: Station) {
     return station.extra && station.extra['status'] && station.extra['status'].toLowerCase() == "closed"
       || station.free_bikes == 0 && station.empty_slots == 0
+  }
+
+  showMore() {
+    this.showNumber += 10;
   }
 
 

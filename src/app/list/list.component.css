@@ -44,3 +44,11 @@
 .closed {
   color: red;
 }
+
+.show-more {
+  text-align: center;
+}
+
+.show-more a {
+  text-decoration: underline;
+}
