@@ -32,6 +32,10 @@ agm-map, .overlay {
   font-size: 80%;
   font-style: italic;
 }
+.legend .operators {
+  font-size: 80%;
+  font-style: italic;
+}
 
 .location-input {
   position: absolute;
@@ -69,9 +73,6 @@ agm-map, .overlay {
 }
 .bike img {
   vertical-align: middle;
-}
-.parking {
-
 }
 
 hr {

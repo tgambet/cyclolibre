@@ -19,13 +19,14 @@
       <b>{{network.name}}</b> comprend <b>{{stations.length}}</b> stations pour un total de <b>{{getTotalStands()}}</b> emplacements.
       Il y a actuellement <b>{{getAvailableBikes()}}</b> vélos disponibles pour <b>{{getAvailableBikeStands()}}</b> emplacements libres.
     </p>
-    <p></p>
+    <!-- <p class="lastUpdated">Mis à jour: {{getLastUpdated()}}</p> -->
+    <p class="operators">Opérateur<span *ngIf="network.company.length > 1">s</span>: {{network.company.join('')}}</p>
     <h2>Légende</h2>
     <p><span class="l l1"></span> Voie réservée aux vélos</p>
     <p><span class="l l2"></span> Rue avec piste cyclable</p>
     <p><span class="l l3"></span> Rue ou chemin recommandé aux vélos</p>
     <p class="source">Source: Google</p>
-    <hr>
+    <!-- <hr> -->
     <p><img src="/assets/icon-4.svg" width="12"> Entre 75 et 100% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
     <p><img src="/assets/icon-3.svg" width="12"> Entre 50 et 75% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
     <p><img src="/assets/icon-2.svg" width="12"> Entre 25 et 50% <span *ngIf="typeLooked == 'bike'">de vélos</span><span *ngIf="typeLooked == 'stand'">d'emplacements</span> disponibles</p>
