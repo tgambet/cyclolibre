@@ -108,7 +108,7 @@
     <agm-info-window #infoWindow>
       <div style="text-align: left; color: black;">
         <!-- <strong>Station n°{{s.number}}</strong><br> -->
-        <a class="icon favorite" (click)="toggleFavorite(s)" [class.is-favorite]="isFavorite(s)">
+        <a class="icon favorite" (click)="toggleFavorite(s)" [class.is-favorite]="isFavorite(s)" [title]="isFavorite(s) ? 'Retirer des favoris' : 'Ajouter aux favoris'">
           <i class="fa fa-star"></i>
         </a>
         <strong>{{s.name}}</strong><br>
