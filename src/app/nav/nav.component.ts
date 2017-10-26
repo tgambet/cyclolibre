@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, Renderer, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { Network } from '../services/citybikes.service';
 
@@ -14,7 +14,7 @@ export class NavComponent implements OnInit {
   @Input()
   network: any
 
-  constructor(elementRef: ElementRef, renderer: Renderer) {
+  constructor() {
 
   }
 

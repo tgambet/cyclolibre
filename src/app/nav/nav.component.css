@@ -1,0 +1,8 @@
+.network-info {
+  max-width: 50%;
+}
+@media screen and (min-width: 1024px) {
+  .network-info {
+    max-width: none;
+  }
+}
