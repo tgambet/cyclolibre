@@ -18,6 +18,7 @@ import { ListComponent } from './list/list.component';
 import { CitybikesService } from './services/citybikes.service';
 import { NetworkResolverService } from './network/network-resolver.service';
 import { FavoriteService } from './services/favorite.service';
+import { GeolocationService } from './services/geolocation.service';
 
 import { environment } from '../environments/environment';
 
@@ -73,6 +74,7 @@ const appRoutes: Routes = [
     GoogleMapsAPIWrapper,
     CitybikesService,
     FavoriteService,
+    GeolocationService,
     NetworkResolverService,
     Title,
     Meta
