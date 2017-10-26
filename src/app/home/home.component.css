@@ -4,11 +4,17 @@
 }
 
 .filter {
-  max-width: 20rem;
+  max-width: 25rem;
+  margin: 0 auto;
+}
+
+.icon {
+  color: #999 !important;
+  pointer-events: auto !important;
 }
 
 .networks {
-  max-width: 20rem;
+  max-width: 25rem;
   margin: 0 auto;
   border: solid #363636;
   border-width: 0 1px;
