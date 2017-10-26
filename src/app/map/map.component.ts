@@ -71,7 +71,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   typeLooked: string = "bike"; // or "stand"
 
-  showFavoritesOnly: boolean = true;
+  showFavoritesOnly: boolean = false;
 
   stations: Station[];
 
@@ -190,8 +190,16 @@ export class MapComponent implements OnInit, OnDestroy {
     }
   }
 
-  clickedStation(stationNumber: string, index: number) {
-    //console.log(`clicked the marker: ${stationNumber || index}`)
+  lastOpen: AgmInfoWindow
+
+  clickedStation(stationNumber: string, infoWindow: AgmInfoWindow) {
+    try {
+      this.lastOpen.close()
+    } catch (e) {
+      
+    } finally {
+      this.lastOpen = infoWindow;
+    }
   }
 
   icon(s: Station) {

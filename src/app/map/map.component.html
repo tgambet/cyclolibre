@@ -106,8 +106,6 @@
     </p>
   </div>
 
-
-
 </div>
 
 <agm-map
@@ -123,7 +121,7 @@
     (mapReady)="onMapReady($event)">
   <agm-marker
       *ngFor="let s of filteredStations(); let i = index"
-      (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedStation(s, i)"
+      (markerClick)="clickedStation(s, infoWindow)"
       [latitude]="s.latitude"
       [longitude]="s.longitude"
       [iconUrl]="icon(s)">
