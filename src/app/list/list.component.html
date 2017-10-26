@@ -47,7 +47,7 @@
     </p>
   </div>
 
-  <div class="show-more">
+  <div class="show-more" *ngIf="showNumber < stations.length">
     <a (click)="showMore()">Montrer plus de stations</a>
   </div>
 
