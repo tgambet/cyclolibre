@@ -107,7 +107,6 @@ hr {
 }
 
 .icon.favorite {
-  //float: right;
   color: #999 !important;
   width: auto;
   height: auto;
@@ -115,4 +114,20 @@ hr {
 
 .icon.is-favorite {
   color: yellow !important;
+}
+
+.button.icon.favorite {
+    padding: 9px;
+    color: black !important;
+}
+.button.icon.is-dark {
+    color: white !important;
+}
+
+.warning {
+  padding: 1rem;
+  max-width: 24rem;
+}
+.warning a {
+  text-decoration: underline;
 }

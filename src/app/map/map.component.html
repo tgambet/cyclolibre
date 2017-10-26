@@ -7,6 +7,18 @@
 <div class="overlay map-error" *ngIf="error" style="color: red; font-weight: bold">
   {{error}}
 </div>
+<div class="overlay favorites-warning" *ngIf="showFavoritesOnly && filteredStations().length == 0" (click)="showFavoritesOnly = false">
+  <div class="warning">
+    <p>
+      Aucune station n'est dans vos favoris. Appuyer sur l'icone en forme d'étoile
+      <span class="icon">
+        <i class="fa fa-star"></i>
+      </span>
+       à côté du nom d'une station pour la rajouter à vos favoris.</p>
+    <a>Fermer</a>
+  </div>
+
+</div>
 <div class="overlay information" *ngIf="showInfo && network && stations" (click)="showInfo = false">
   <div class="legend" *ngIf="true" (click)="$event.stopPropagation()">
     <a class="delete" (click)="showInfo = false">
@@ -86,6 +98,16 @@
     </p>
   </div>
 
+  <div class="field" *ngIf="stations">
+    <p>
+      <a class="button icon favorite" (click)="showFavoritesOnly = !showFavoritesOnly" [class.is-dark]="showFavoritesOnly" [title]="showFavoritesOnly ? 'Afficher toutes les stations' : 'Afficher uniquement les stations favorites'">
+        <i class="fa fa-star"></i>
+      </a>
+    </p>
+  </div>
+
+
+
 </div>
 
 <agm-map
@@ -100,7 +122,7 @@
     (zoomChange)="onZoomChange($event)"
     (mapReady)="onMapReady($event)">
   <agm-marker
-      *ngFor="let s of stations; let i = index"
+      *ngFor="let s of filteredStations(); let i = index"
       (markerClick)="gm.lastOpen?.close(); gm.lastOpen = infoWindow; clickedStation(s, i)"
       [latitude]="s.latitude"
       [longitude]="s.longitude"

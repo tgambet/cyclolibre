@@ -71,6 +71,8 @@ export class MapComponent implements OnInit, OnDestroy {
 
   typeLooked: string = "bike"; // or "stand"
 
+  showFavoritesOnly: boolean = true;
+
   stations: Station[];
 
   network: Network;
@@ -298,6 +300,10 @@ export class MapComponent implements OnInit, OnDestroy {
 
   isFavorite(station: Station): boolean {
     return this.favorites.isFavorite(station)
+  }
+
+  filteredStations(): Station[] {
+    return this.showFavoritesOnly ? _.filter(this.stations, (station) => this.favorites.isFavorite(station)) : this.stations;
   }
 
 }
