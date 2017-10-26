@@ -13,9 +13,9 @@
         Les vélos en libre service
       </h2>
 
-      <div class="search-input field filter" *ngIf="networks">
-        <p class="control has-icons-right">
-          <input placeholder="Recherchez une ville" [(ngModel)]="filter" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input is-dark">
+      <div class="field has-addons filter" *ngIf="networks">
+        <p class="control has-icons-right is-expanded">
+          <input placeholder="Recherchez une ville" [(ngModel)]="filter" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input" title="Tapez le nom d'une ville ou d'un système de vélos en libre service">
           <a class="icon is-right" *ngIf="filter != ''" (click)="filter = ''">
             <i class="fa fa-remove"></i>
           </a>
@@ -23,6 +23,11 @@
             <i class="fa fa-search"></i>
           </a>
         </p>
+        <div class="control">
+          <a class="button location" title="Trouver la ville la plus proche de ma position">
+            <img src="assets/location-black.svg" height="26" width="26">
+          </a>
+        </div>
       </div>
 
       <div *ngIf="networks && filter !=''" class="networks">
