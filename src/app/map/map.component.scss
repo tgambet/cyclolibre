@@ -105,3 +105,14 @@ hr {
   right: 0.2rem;
   top: 0.2rem;
 }
+
+.icon.favorite {
+  //float: right;
+  color: #999 !important;
+  width: auto;
+  height: auto;
+}
+
+.icon.is-favorite {
+  color: yellow !important;
+}

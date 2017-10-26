@@ -8,27 +8,27 @@ import * as _ from 'lodash';
 export class FavoriteService {
 
   constructor() {
-    let storedFavorites = window.localStorage.getItem("favorites")
+    let storedFavorites = window.localStorage.getItem("favorites");
     if (storedFavorites)
-      this.favorites = storedFavorites.split(",")
+      this.favorites = storedFavorites.split(",");
     else
-      this.favorites = []
+      this.favorites = [];
   }
 
   private favorites: string[]
 
   private save() {
-    window.localStorage.setItem("favorites", this.favorites.join(","))
+    window.localStorage.setItem("favorites", this.favorites.join(","));
   }
 
   addToFavorite(station: Station) {
     this.favorites.push(station.id);
-    this.save()
+    this.save();
   }
 
   removeFromFavorite(station: Station) {
     _.remove(this.favorites, (stationId) => stationId == station.id);
-    this.save()
+    this.save();
   }
 
   toggleFavorite(station: Station) {

@@ -108,6 +108,9 @@
     <agm-info-window #infoWindow>
       <div style="text-align: left; color: black;">
         <!-- <strong>Station n°{{s.number}}</strong><br> -->
+        <a class="icon favorite" (click)="toggleFavorite(s)" [class.is-favorite]="isFavorite(s)">
+          <i class="fa fa-star"></i>
+        </a>
         <strong>{{s.name}}</strong><br>
         <span *ngIf="s.extra && s.extra.address">{{s.extra.address}}<br></span>
         <span *ngIf="!isClosed(s)">

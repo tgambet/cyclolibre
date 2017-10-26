@@ -6,6 +6,7 @@ import { LatLngBounds, LatLngBoundsLiteral } from '@agm/core/services/google-map
 import { } from 'googlemaps';
 
 import { CitybikesService, Station, Network } from '../services/citybikes.service';
+import { FavoriteService } from '../services/favorite.service';
 
 import * as _ from 'lodash';
 
@@ -92,6 +93,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: CitybikesService,
+    private favorites: FavoriteService,
     private router: Router,
     private route: ActivatedRoute,
     private mapsAPILoader: MapsAPILoader,
@@ -288,6 +290,14 @@ export class MapComponent implements OnInit, OnDestroy {
   getLastUpdated() {
     let timestamps = _.map(this.stations, (station) => station.timestamp)
     return _.max(timestamps);
+  }
+
+  toggleFavorite(station: Station) {
+    this.favorites.toggleFavorite(station);
+  }
+
+  isFavorite(station: Station): boolean {
+    return this.favorites.isFavorite(station)
   }
 
 }
