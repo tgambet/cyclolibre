@@ -23,7 +23,7 @@
 
 </div>
 
-<div class="stations">
+<div class="stations" *ngIf="stations">
 
   <div class="station" *ngFor="let station of filteredStations()">
     <a class="icon favorite" (click)="toggleFavorite(station)" [class.is-favorite]="isFavorite(station)" [title]="isFavorite(station) ? 'Retirer des favoris' : 'Ajouter aux favoris'">

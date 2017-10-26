@@ -196,27 +196,36 @@ export class MapComponent implements OnInit, OnDestroy {
     try {
       this.lastOpen.close()
     } catch (e) {
-      
+
     } finally {
       this.lastOpen = infoWindow;
     }
   }
 
   icon(s: Station) {
-    if (s.empty_slots == 0 && s.free_bikes == 0 || s.extra && s.extra['status'] && s.extra['status'].toLowerCase() == "closed")
-      return 'assets/icon.svg';
-    let stands = s.free_bikes + s.empty_slots;
-    let percentage =
-      this.typeLooked == "bike" ? s.free_bikes / stands : s.empty_slots / stands;
-    if (percentage >= 0.75)
-      return 'assets/icon-4.svg';
-    if (percentage >= 0.50)
-      return 'assets/icon-3.svg';
-    if (percentage >= 0.25)
-      return 'assets/icon-2.svg';
-    if (percentage > 0)
-      return 'assets/icon-1.svg';
-    return 'assets/icon-0.svg';
+
+    let path = 'assets/icon-';
+
+    if (this.isClosed(s)) {
+      path += 'grey';
+    } else {
+      let stands = s.free_bikes + s.empty_slots;
+      let percentage =
+        this.typeLooked == "bike" ? s.free_bikes / stands : s.empty_slots / stands;
+      if (percentage >= 0.50)
+        path += 'green';
+      else if (percentage >= 0.25)
+        path += 'yellow';
+      else if (percentage > 0)
+        path += 'orange';
+      else
+        path += 'red';
+    }
+    
+    if (this.zoom < 14)
+      path += '-small'
+
+    return path + '.svg';
   }
 
   isClosed(station: Station) {
