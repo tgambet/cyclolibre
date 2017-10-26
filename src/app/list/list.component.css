@@ -1,6 +1,5 @@
 .icon {
   pointer-events: auto !important;
-  color: #999 !important;
 }
 
 .filter {
@@ -8,6 +7,10 @@
   top: 0;
   z-index: 10;
   width: 100%;
+}
+
+.filter .icon {
+  color: #999 !important;
 }
 
 .stations {
@@ -51,4 +54,12 @@
 
 .show-more a {
   text-decoration: underline;
+}
+
+.icon.favorite {
+  color: #999 !important;
+}
+
+.icon.is-favorite {
+  color: yellow !important;
 }

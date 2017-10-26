@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { CitybikesService, Station, Network } from '../services/citybikes.service';
+import { FavoriteService } from '../services/favorite.service';
 
 import * as _ from 'lodash';
 
@@ -14,6 +15,7 @@ export class ListComponent implements OnInit, OnDestroy {
 
   constructor(
     private service: CitybikesService,
+    private favorites: FavoriteService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
@@ -80,5 +82,12 @@ export class ListComponent implements OnInit, OnDestroy {
     this.showNumber += 10;
   }
 
+  toggleFavorite(station: Station) {
+    this.favorites.toggleFavorite(station);
+  }
+
+  isFavorite(station: Station): boolean {
+    return this.favorites.isFavorite(station)
+  }
 
 }

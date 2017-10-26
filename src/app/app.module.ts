@@ -12,13 +12,14 @@ import { AboutComponent } from './about/about.component';
 import { HomeComponent } from './home/home.component';
 import { NavComponent } from './nav/nav.component';
 import { MapComponent } from './map/map.component';
+import { NetworkComponent } from './network/network.component';
+import { ListComponent } from './list/list.component';
 
 import { CitybikesService } from './services/citybikes.service';
-import { NetworkComponent } from './network/network.component';
 import { NetworkResolverService } from './network/network-resolver.service';
+import { FavoriteService } from './services/favorite.service';
 
 import { environment } from '../environments/environment';
-import { ListComponent } from './list/list.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
@@ -71,6 +72,7 @@ const appRoutes: Routes = [
   providers: [
     GoogleMapsAPIWrapper,
     CitybikesService,
+    FavoriteService,
     NetworkResolverService,
     Title,
     Meta
