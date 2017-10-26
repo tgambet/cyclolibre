@@ -62,9 +62,9 @@
   </p>
 </div>
 
-<div class="controls">
+<div class="controls" *ngIf="stations">
 
-  <div class="field has-addons" *ngIf="stations">
+  <div class="field has-addons">
     <p class="control">
       <a class="button bike" (click)="typeLooked = 'bike'" [class.is-dark]="typeLooked == 'bike'" title="Afficher les vélos disponibles">
         <img *ngIf="typeLooked == 'bike'" src="assets/bike-white.svg" height="26" width="26" />
@@ -78,7 +78,7 @@
     </p>
   </div>
 
-  <div class="field" *ngIf="stations">
+  <div class="field">
     <p>
       <a class="button" (click)="showInfo = true" [class.is-dark]="showInfo" title="Informations et légende">
         <span class="icon">
@@ -88,7 +88,7 @@
     </p>
   </div>
 
-  <div class="field" *ngIf="stations">
+  <div class="field">
     <p>
       <a class="button location" (click)="toggleGeoLocalization()" [class.is-loading]="isGeolocalizing()" [class.is-dark]="isGeolocalized()" >
         <img src="assets/location.svg" height="26" width="26" *ngIf="isGeolocalized()">
@@ -97,10 +97,26 @@
     </p>
   </div>
 
-  <div class="field" *ngIf="stations">
+  <div class="field">
     <p>
       <a class="button icon favorite" (click)="showFavoritesOnly = !showFavoritesOnly" [class.is-dark]="showFavoritesOnly" [title]="showFavoritesOnly ? 'Afficher toutes les stations' : 'Afficher uniquement les stations favorites'">
         <i class="fa fa-star"></i>
+      </a>
+    </p>
+  </div>
+
+  <div class="field zoom zoom-plus">
+    <p>
+      <a class="button icon" (click)="zoom = zoom + 1" title="Zoom avant">
+        <i class="fa fa-plus"></i>
+      </a>
+    </p>
+  </div>
+
+  <div class="field zoom zoom-minus">
+    <p>
+      <a class="button icon" (click)="zoom = zoom - 1" title="Zoom arrière">
+        <i class="fa fa-minus"></i>
       </a>
     </p>
   </div>
@@ -113,6 +129,7 @@
     [longitude]="lng"
     [zoom]="zoom"
     [streetViewControl]=false
+    [zoomControl]=false
     [styles]="mapStyles"
     [fitBounds]="mapBounds"
     (centerChange)="onCenterChange($event)"

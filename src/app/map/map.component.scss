@@ -131,3 +131,20 @@ hr {
 .warning a {
   text-decoration: underline;
 }
+
+.controls .field.zoom {
+  margin-bottom: 0;
+}
+
+.field.zoom a {
+  padding-left: 17px;
+  padding-right: 17px;
+}
+.field.zoom-plus a {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0
+}
+.field.zoom-minus a {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0
+}
