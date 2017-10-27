@@ -4,8 +4,8 @@
   </span>
   &nbsp;Chargement...
 </div>
-<div class="overlay map-error" *ngIf="error" style="color: red; font-weight: bold">
-  {{error}}
+<div class="overlay map-error" *ngIf="error" style="color: red; font-weight: bold" (click)="error = ''">
+  {{error}}.&nbsp;<a style="text-decoration: underline">OK</a>
 </div>
 <div class="overlay favorites-warning" *ngIf="showFavoritesOnly && filteredStations().length == 0" (click)="showFavoritesOnly = false">
   <div class="warning">

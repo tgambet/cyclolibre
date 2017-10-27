@@ -222,7 +222,7 @@ export class MapComponent implements OnInit, OnDestroy {
       else
         path += 'red';
     }
-    
+
     if (this.zoom < 14)
       path += '-small'
 
@@ -279,7 +279,11 @@ export class MapComponent implements OnInit, OnDestroy {
               longitude: position.coords.longitude
             }
           },
-          (error) => { console.log(error) },
+          (error) => {
+            this.error = error.message
+            navigator.geolocation.clearWatch(this.geoWatchId);
+            this.geoWatchId = null;
+          },
           {
             enableHighAccuracy: true,
             maximumAge        : 0,
@@ -288,8 +292,7 @@ export class MapComponent implements OnInit, OnDestroy {
         );
       }
     } else {
-      console.log("TODO - not available")
-      /* geolocation IS NOT available */
+      this.error = "Geolocalisation non disponible"
     }
   }
 
