@@ -10,9 +10,9 @@
   {{error}}
 </div>
 
-<div class="filter field has-addons">
+<div class="filter field has-addons" *ngIf="stations">
 
-  <p class="control has-icons-right is-expanded" *ngIf="stations">
+  <p class="control has-icons-right is-expanded">
     <span class="filter">
       <input type="text" class="input" placeholder="Rechercher une station" [(ngModel)]="stationFilter"/>
       <a class="icon is-right" *ngIf="stationFilter != ''" (click)="stationFilter = ''">
@@ -41,7 +41,7 @@
 
 <div class="stations" *ngIf="stations">
 
-  <div class="station" *ngFor="let station of filteredStations()">
+  <div class="station" *ngFor="let station of filteredStations(showNumber)">
     <a class="icon favorite" (click)="toggleFavorite(station)" [class.is-favorite]="isFavorite(station)" [title]="isFavorite(station) ? 'Retirer des favoris' : 'Ajouter aux favoris'">
       <i class="fa fa-star"></i>
     </a>
@@ -63,7 +63,19 @@
     </p>
   </div>
 
-  <div class="show-more" *ngIf="showNumber < stations.length">
+  <div class="favorites-warning" *ngIf="showFavoritesOnly && filteredStations().length == 0" (click)="showFavoritesOnly = false">
+    <div class="warning">
+      <p>
+        Aucune station n'est dans vos favoris. Appuyer sur l'icone en forme d'étoile
+        <span class="icon">
+          <i class="fa fa-star"></i>
+        </span>
+         à côté du nom d'une station pour la rajouter à vos favoris.</p>
+      <a>Fermer</a>
+    </div>
+  </div>
+
+  <div class="show-more" *ngIf="showNumber < filteredStations(Infinity).length">
     <a (click)="showMore()">Montrer plus de stations</a>
   </div>
 

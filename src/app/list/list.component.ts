@@ -63,7 +63,7 @@ export class ListComponent implements OnInit, OnDestroy {
       clearInterval(this.intervalID);
   }
 
-  filteredStations(): Station[] {
+  filteredStations(number: number): Station[] {
     function filterBase(station: Station) {
       return (station.name).toLowerCase();
     }
@@ -72,10 +72,10 @@ export class ListComponent implements OnInit, OnDestroy {
       (station: Station) => filterBase(station).includes(this.stationFilter.toLowerCase())
     )
 
-    this.showFavoritesOnly ? filtered = _.filter(filtered, (station) => this.favorites.isFavorite(station)) : filtered; 
+    this.showFavoritesOnly ? filtered = _.filter(filtered, (station) => this.favorites.isFavorite(station)) : filtered;
 
     let sorted = _.sortBy(filtered, (station) => station.name)
-    return sorted.slice(0, this.showNumber);
+    return sorted.slice(0, number);
   }
 
   isClosed(station: Station) {

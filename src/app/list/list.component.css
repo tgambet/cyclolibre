@@ -19,6 +19,13 @@
   color: white !important;
 }
 
+.favorites-warning {
+  text-align: center;
+}
+.favorites-warning a {
+  text-decoration: underline;
+}
+
 .stations {
   text-align: left;
 }
