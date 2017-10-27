@@ -48,6 +48,9 @@
       <div *ngIf="warning" class="info warning">
         {{warning}}
       </div>
+      <div *ngIf="filter != '' && filteredNetworks(5).length == 0" class="info not-found">
+        Aucune ville ou système de vélo en libre service trouvés pour cette recherche
+      </div>
     </div>
   </div>
 </section>
