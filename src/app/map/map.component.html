@@ -94,7 +94,7 @@
 
   <div class="field">
     <p>
-      <a class="button location" (click)="toggleGeoLocalization()" [class.is-loading]="isGeolocalizing()" [class.is-dark]="isGeolocalized()" >
+      <a class="button location" (click)="toggleGeoLocalization()" [class.is-loading]="isGeolocalizing()" [class.is-dark]="isGeolocalized()" [title]="isGeolocalized() ? 'Ne plus traquer ma position' : 'Traquer ma position'" >
         <img src="assets/location.svg" height="26" width="26" *ngIf="isGeolocalized()">
         <img src="assets/location-not-fixed.svg" height="26" width="26" *ngIf="isNotGeolocalized()">
       </a>
