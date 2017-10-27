@@ -31,6 +31,7 @@ export class MapComponent implements OnInit, OnDestroy {
     north: 45
   }
 
+  // https://mapstyle.withgoogle.com/
   mapStyles = [
     {
       "featureType": "administrative.land_parcel",

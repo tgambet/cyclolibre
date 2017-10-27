@@ -10,16 +10,32 @@
   {{error}}
 </div>
 
-<div class="filter">
+<div class="filter field has-addons">
 
-  <p class="control has-icons-right" *ngIf="stations">
+  <p class="control has-icons-right is-expanded" *ngIf="stations">
     <span class="filter">
-      <input type="text" class="input is-dark" placeholder="Rechercher une station" [(ngModel)]="stationFilter"/>
+      <input type="text" class="input" placeholder="Rechercher une station" [(ngModel)]="stationFilter"/>
       <a class="icon is-right" *ngIf="stationFilter != ''" (click)="stationFilter = ''">
         <i class="fa fa-remove"></i>
       </a>
     </span>
   </p>
+
+  <div class="control">
+    <p>
+      <a class="button icon favicon" (click)="showFavoritesOnly = !showFavoritesOnly" [class.is-dark]="showFavoritesOnly" [title]="showFavoritesOnly ? 'Afficher toutes les stations' : 'Afficher uniquement les stations favorites'">
+        <i class="fa fa-star"></i>
+      </a>
+    </p>
+  </div>
+
+  <!-- <div class="control">
+    <p>
+      <a class="button icon" (click)="showFavoritesOnly = !showFavoritesOnly" [class.is-dark]="showFavoritesOnly" [title]="showFavoritesOnly ? 'Afficher toutes les stations' : 'Afficher uniquement les stations favorites'">
+        <i class="fa fa-star"></i>
+      </a>
+    </p>
+  </div> -->
 
 </div>
 

@@ -3,18 +3,23 @@
 }
 
 .filter {
-  position: absolute;
-  top: 0;
-  z-index: 10;
-  width: 100%;
+  margin-top: -0.5rem;
 }
 
 .filter .icon {
   color: #999 !important;
 }
 
+.filter .favicon {
+  padding-left: 17px;
+  padding-right: 17px;
+  color: #363636 !important;
+}
+.filter .favicon.is-dark {
+  color: white !important;
+}
+
 .stations {
-  margin-top: 3.3rem;
   text-align: left;
 }
 

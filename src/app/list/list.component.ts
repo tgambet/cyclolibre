@@ -34,6 +34,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   showNumber: number = 10;
 
+  showFavoritesOnly: boolean = false;
+
   ngOnInit() {
     this.route.parent.data.subscribe((data: { network: Network }) => {
       this.network = data.network
@@ -69,6 +71,9 @@ export class ListComponent implements OnInit, OnDestroy {
       this.stations,
       (station: Station) => filterBase(station).includes(this.stationFilter.toLowerCase())
     )
+
+    this.showFavoritesOnly ? filtered = _.filter(filtered, (station) => this.favorites.isFavorite(station)) : filtered; 
+
     let sorted = _.sortBy(filtered, (station) => station.name)
     return sorted.slice(0, this.showNumber);
   }
