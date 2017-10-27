@@ -64,12 +64,15 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   filteredStations(number: number): Station[] {
-    function filterBase(station: Station) {
-      return (station.name).toLowerCase();
+    let filterBase: (station: Station) => string = (station: Station) => {
+      let base = station.name;
+      if (station.extra && station.extra['address'])
+        base += station.extra['address'];
+      return this.accentsTidy(base.toLowerCase());
     }
     let filtered = _.filter(
       this.stations,
-      (station: Station) => filterBase(station).includes(this.stationFilter.toLowerCase())
+      (station: Station) => filterBase(station).includes(this.accentsTidy(this.stationFilter.toLowerCase()))
     )
 
     this.showFavoritesOnly ? filtered = _.filter(filtered, (station) => this.favorites.isFavorite(station)) : filtered;
@@ -77,6 +80,33 @@ export class ListComponent implements OnInit, OnDestroy {
     let sorted = _.sortBy(filtered, (station) => station.name)
     return sorted.slice(0, number);
   }
+
+  accentsTidy(s) {
+    var map = [
+        ["\\s", ""],
+        ["[àáâãäå]", "a"],
+        ["æ", "ae"],
+        ["ç", "c"],
+        ["[èéêë]", "e"],
+        ["[ìíîï]", "i"],
+        ["ñ", "n"],
+        ["[òóôõö]", "o"],
+        ["œ", "oe"],
+        ["[ùúûü]", "u"],
+        ["[ýÿ]", "y"],
+        ["\\W", ""]
+    ];
+    for (var i=0; i<map.length; ++i) {
+        s = s.replace(new RegExp(map[i][0], "gi"), function(match) {
+            if (match.toUpperCase() === match) {
+                return map[i][1].toUpperCase();
+            } else {
+                return map[i][1];
+            }
+        });
+    }
+    return s;
+}
 
   isClosed(station: Station) {
     return station.extra && station.extra['status'] && station.extra['status'].toLowerCase() == "closed"
