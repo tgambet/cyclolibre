@@ -41,9 +41,12 @@
         </span>
         Chargement...
       </div>
-      <div *ngIf="error" class="error">
+      <div *ngIf="error" class="info error">
         Une erreur est survenue ({{error}})<br>
         Réessayez plus tard
+      </div>
+      <div *ngIf="warning" class="info warning">
+        {{warning}}
       </div>
     </div>
   </div>
