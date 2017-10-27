@@ -33,9 +33,45 @@ export class HomeComponent implements OnInit {
 
   filteredNetworks(max: number): Network[] {
     if (!this.networks) return [];
+    let filterBase: (network: Network) => string = (network: Network) => {
+      let base = network.name + network.location.city + network.id;
+      return this.accentsTidy(base.toLowerCase());
+    }
+
+    let filter = this.accentsTidy(this.filter.toLowerCase());
+
     return _.filter(this.networks, (network: Network) => {
-      return (network.name + ' ' + network.location.city).toLowerCase().includes(this.filter.toLowerCase());
+      if (!network['base'])
+        network['base'] = filterBase(network)
+      return network['base'].includes(filter);
     }).slice(0, max);
+  }
+
+  accentsTidy(s) {
+    var map = [
+        ["\\s", ""],
+        ["[àáâãäå]", "a"],
+        //["æ", "ae"],
+        ["ç", "c"],
+        ["[èéêë]", "e"],
+        ["[ìíîï]", "i"],
+        ["ñ", "n"],
+        ["[òóôõö]", "o"],
+        //["œ", "oe"],
+        ["[ùúûü]", "u"],
+        ["[ýÿ]", "y"],
+        ["\\W", ""]
+    ];
+    for (var i=0; i<map.length; ++i) {
+        s = s.replace(new RegExp(map[i][0], "gi"), function(match) {
+            if (match.toUpperCase() === match) {
+                return map[i][1].toUpperCase();
+            } else {
+                return map[i][1];
+            }
+        });
+    }
+    return s;
   }
 
   isGeolocalizing: boolean = false;

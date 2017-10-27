@@ -15,7 +15,7 @@
 
       <div class="field has-addons filter" *ngIf="networks">
         <p class="control has-icons-right is-expanded">
-          <input placeholder="Recherchez une ville" [(ngModel)]="filter" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input" title="Tapez le nom d'une ville ou d'un système de vélos en libre service">
+          <input placeholder="Recherchez une ville (ex. Nice)" [(ngModel)]="filter" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="input" title="Tapez le nom d'une ville ou d'un système de vélos en libre service">
           <a class="icon is-right" *ngIf="filter != ''" (click)="filter = ''">
             <i class="fa fa-remove"></i>
           </a>

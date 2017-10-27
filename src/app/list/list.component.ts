@@ -70,10 +70,12 @@ export class ListComponent implements OnInit, OnDestroy {
         base += station.extra['address'];
       return this.accentsTidy(base.toLowerCase());
     }
-    let filtered = _.filter(
-      this.stations,
-      (station: Station) => filterBase(station).includes(this.accentsTidy(this.stationFilter.toLowerCase()))
-    )
+    let filter = this.accentsTidy(this.stationFilter.toLowerCase())
+    let filtered = _.filter(this.stations, (station: Station) => {
+      if (!station['base'])
+        station['base'] = filterBase(station)
+      return station['base'].includes(filter)
+    })
 
     this.showFavoritesOnly ? filtered = _.filter(filtered, (station) => this.favorites.isFavorite(station)) : filtered;
 
