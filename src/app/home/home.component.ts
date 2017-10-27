@@ -38,9 +38,13 @@ export class HomeComponent implements OnInit {
     }).slice(0, max);
   }
 
+  isGeolocalizing: boolean = false;
+
   geoLocalize() {
+    this.isGeolocalizing = true;
     this.geolocation.getCurrentPosition()
         .then((position: Position) => {
+          this.isGeolocalizing = false;
           // find closest network and redirect
           let distances = this.networks.map((network: Network) => {
             return {
@@ -56,6 +60,7 @@ export class HomeComponent implements OnInit {
             this.warning = "Impossible de trouver une ville supportée dans les 50km de votre position"
         })
         .catch((error) => {
+          this.isGeolocalizing = false;
           this.warning = error
         });
   }
