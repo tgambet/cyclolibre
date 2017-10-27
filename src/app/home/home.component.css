@@ -25,8 +25,13 @@
 }
 
 .button.location {
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.button.location.is-loading {
+  padding-left: 19px;
+  padding-right: 19px;
 }
 
 .networks {

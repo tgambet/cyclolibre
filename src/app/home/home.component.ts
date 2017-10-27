@@ -54,10 +54,11 @@ export class HomeComponent implements OnInit {
           })
           let closest = _.orderBy(distances, (obj) => obj.distance)[0]
           // Check that closest is within 50?km from user position
-          if (closest.distance < 50)
+          if (closest.distance < 50) {
             this.router.navigate(['/' + closest.id])
-          else
+          } else {
             this.warning = "Impossible de trouver une ville supportée dans les 50km de votre position"
+          }
         })
         .catch((error) => {
           this.isGeolocalizing = false;
