@@ -10,7 +10,12 @@ export class GeolocationService {
       if ("geolocation" in navigator) {
         navigator.geolocation.getCurrentPosition(
           (position: Position) => resolve(position),
-          (error: PositionError) => reject(error.message)
+          (error: PositionError) => reject(error.message),
+          {
+            enableHighAccuracy: false,
+            maximumAge        : 0,
+            timeout           : 10000
+          }
         )
       } else {
         reject("No geolocation available")

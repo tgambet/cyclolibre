@@ -41,6 +41,8 @@ export class HomeComponent implements OnInit {
   isGeolocalizing: boolean = false;
 
   geoLocalize() {
+    if (this.isGeolocalizing)
+      return;
     this.isGeolocalizing = true;
     this.geolocation.getCurrentPosition()
         .then((position: Position) => {
