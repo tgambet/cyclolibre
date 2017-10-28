@@ -25,7 +25,7 @@
         </p>
         <div class="control">
           <a class="button location" [class.is-loading]="isGeolocalizing" (click)="geoLocalize()" title="Trouver la ville la plus proche de ma position">
-            <img src="assets/location-black.svg" height="26" width="26" *ngIf="!isGeolocalizing">
+            <img alt="Geolocation" src="assets/location-black.svg" height="26" width="26" *ngIf="!isGeolocalizing">
           </a>
         </div>
       </div>
