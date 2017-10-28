@@ -21,10 +21,12 @@ import { FavoriteService } from './services/favorite.service';
 import { GeolocationService } from './services/geolocation.service';
 
 import { environment } from '../environments/environment';
+import { LicenseComponent } from './license/license.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'about', component: AboutComponent },
+  { path: 'license', component: LicenseComponent },
   {
     path: ':id',
     component: NetworkComponent,
@@ -56,6 +58,7 @@ const appRoutes: Routes = [
     MapComponent,
     NetworkComponent,
     ListComponent,
+    LicenseComponent,
   ],
   imports: [
     BrowserModule,
