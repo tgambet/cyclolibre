@@ -13,7 +13,7 @@ export class GeolocationService {
           (error: PositionError) => reject(error.message),
           {
             enableHighAccuracy: false,
-            maximumAge        : 0,
+            maximumAge        : 120000,
             timeout           : 10000
           }
         )
