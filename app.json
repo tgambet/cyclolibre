@@ -3,7 +3,7 @@
   "scripts": {
   },
   "env": {
-    "PRODUCTION": "false"
+    "PRODUCTION": "true"
   },
   "formation": {
   },
