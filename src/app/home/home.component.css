@@ -15,7 +15,7 @@
 }
 
 .filter {
-  max-width: 25rem;
+  max-width: 32rem;
   margin: 0 auto;
 }
 
@@ -35,7 +35,7 @@
 }
 
 .networks {
-  max-width: 25rem;
+  max-width: 32rem;
   margin: 0 auto;
   border: solid #363636;
   border-width: 0 1px;
