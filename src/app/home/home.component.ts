@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { Title, Meta } from '@angular/platform-browser';
+
 import * as _ from 'lodash';
 
 import { CitybikesService, Network } from '../services/citybikes.service';
@@ -18,6 +20,7 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private citybikesService: CitybikesService,
     private geolocation: GeolocationService,
+    private titleService: Title,
   ) {}
 
   networks: Network[]
@@ -26,6 +29,7 @@ export class HomeComponent implements OnInit {
   warning: string
 
   ngOnInit() {
+    this.titleService.setTitle('CycloLibre')
     this.citybikesService.getNetworks().then(networks => this.networks = networks)
   }
 
