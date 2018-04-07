@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const compression = require('compression')
+const compression = require('compression');
 
 const forceSSL = function() {
   return function (req, res, next) {
@@ -12,9 +12,9 @@ const forceSSL = function() {
     }
     next();
   }
-}
+};
 
-if (process.env.PRODUCTION == "true") {
+if (process.env.PRODUCTION === "true") {
   app.use(forceSSL());
   app.use(compression());
 }
